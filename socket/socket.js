@@ -6,13 +6,10 @@
 const getNodeStatus = require('../server/getNodeStatus');
 module.exports = (io)=>{
 	io.on('connect',function (socket) {
-		socket.on('getNodeStatus',function () {
+		event.on('fileChange',function () {
 			let data = getNodeStatus();
 			if(data){
-				socket.emit('sendNodeStatus',data);
-			}
-			else {
-				socket.emit('err',[]);
+				socket.emit('nodeStatus',data);
 			}
 		});
 		socket.on('disconnect',function () {

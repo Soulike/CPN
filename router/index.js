@@ -10,10 +10,6 @@ router = new Router({
 	prefix: '/cpn'
 });
 
-router.use(async (ctx, next) => {
-	ctx.state.user = 0;
-	await next();
-});
 
 lib.autoImport(__dirname , (tmpPath) => {
 	require(tmpPath)(router);
