@@ -15,8 +15,21 @@ const port = pkg.port;
 
 const isDebug = process.env.DEBUG === "debug";
 
+const fs = require('fs');
+const cpnEvent = require('../lib/cpnEvents');
+fs.watchFile('../test/topo.txt', {
+	persistent:true
+}, function(cur, pre) {
+	if (Date.parse(pre.ctime) === 0) {
+		console.log('文件被创建');
+	} else if (Date.parse(cur.ctime) === 0) {
+		console.log('文件被删除');
+	} else if (Date.parse(cur.mtime) !== Date.parse(prev.mtime)) {
+		cpnEvent.emit('fileChange')
+	}
+});
+
 if (isDebug) {
-	debug("Debug Mode");
 	let server = http.createServer(app.callback());
 	let io = require('socket.io')(server);
 	require('../socket/socket')(io);

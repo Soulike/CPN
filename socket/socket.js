@@ -3,10 +3,11 @@
  * Date 18-5-23
  * Time 上午10:55
  **/
+const cpnEvent = require('../lib/cpnEvents');
 const getNodeStatus = require('../server/getNodeStatus');
 module.exports = (io)=>{
 	io.on('connect',function (socket) {
-		event.on('fileChange',function () {
+		cpnEvent.on('fileChange',function () {
 			let data = getNodeStatus();
 			if(data){
 				socket.emit('nodeStatus',data);
