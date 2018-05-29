@@ -25,7 +25,7 @@ fs.watchFile('../test/topo.txt', {
 		console.log('文件被创建');
 	} else if (Date.parse(cur.ctime) === 0) {
 		console.log('文件被删除');
-	} else if (Date.parse(cur.mtime) !== Date.parse(prev.mtime)) {
+	} else if (Date.parse(cur.mtime) !== Date.parse(pre.mtime)) {
 		console.log('文件被修改');
 		cpnEvent.emit('fileChange')
 	}
