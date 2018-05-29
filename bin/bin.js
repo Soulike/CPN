@@ -17,6 +17,7 @@ const isDebug = process.env.DEBUG === "debug";
 
 const fs = require('fs');
 const cpnEvent = require('../lib/cpnEvents');
+//监控文件是否修改
 fs.watchFile('../test/topo.txt', {
 	persistent:true
 }, function(cur, pre) {
@@ -25,6 +26,7 @@ fs.watchFile('../test/topo.txt', {
 	} else if (Date.parse(cur.ctime) === 0) {
 		console.log('文件被删除');
 	} else if (Date.parse(cur.mtime) !== Date.parse(prev.mtime)) {
+		console.log('文件被修改');
 		cpnEvent.emit('fileChange')
 	}
 });
