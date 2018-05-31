@@ -7,3 +7,5 @@ const SERVER = {
     DOMAIN: '127.0.0.1',
     PORT: 3000
 };
+
+const DEBUG = true;
