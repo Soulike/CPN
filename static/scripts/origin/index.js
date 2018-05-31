@@ -71,6 +71,7 @@ $(() =>
             }
         }
 
+        console.log(processedLines);
         /*筛选完毕后，将进行48x48的迭代。如果a-b在对象中不存在，就删除connected属性*/
         for (let i = 0; i < 48; i++)
         {
