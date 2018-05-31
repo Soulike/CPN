@@ -52,7 +52,7 @@ class graph{
 	randomGenerate(){
 		for (let i = 0;i < this.edges.length;++i){
 			this.edges[i].is = !!Math.round(Math.random());
-			this.edges[i].is = true;
+			//this.edges[i].is = true;
 		}
 	}
 	getLinkNode(nodePoint){
