@@ -7,7 +7,7 @@ const fs = require('fs');
 const config = require('../config/config');
 
 module.exports = ()=>{
-	let data = fs.readFileSync(config.filePath,'utf-8');
+	let data = fs.readFileSync(config.nodesTopoPath,'utf-8');
 	let link = [];
 	data = data.split('\n');
 	data.pop();

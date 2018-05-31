@@ -13,6 +13,7 @@ describe('#test router',()=>{
 			.end((err,res)=>{
 				if(err) console.log(err);
 				else console.log(res.body);
+				for(let i of res.body.data.nodes) console.log(i.length);
 			})
 	});
 

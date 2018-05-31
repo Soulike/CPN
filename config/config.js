@@ -3,9 +3,13 @@
  * Date 18-5-23
  * Time 上午10:56
  **/
+const path = require('path');
 let config = {
-	filePath:'../test/topo.txt',
 	leftFlag:'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
-	nextNodeNumber:6
+	nextNodeNumber:6,
+	nodesNumber:10,
+	nodesFilePath:path.join(__dirname,'../test/nodes.txt'),
+	nodesTypePath:path.join(__dirname,'../test/type.txt'),
+	nodesTopoPath:path.join(__dirname,'../test/topo.txt')
 };
 module.exports = config;

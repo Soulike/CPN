@@ -38,17 +38,21 @@ if (isDebug) {
 	server.listen(port);
 } else {
 	console.info("Production Mode");
-	if (cluster.isMaster) {
-		for (let i = 0; i < numCPUs; i++) {
-			cluster.fork();
-		}
-		cluster.on("exit", (worker, code, signal) => {
-			console.error(`worker ${worker.process.pid} died, exit code is ${code}`);
-		});
-	} else {
-		let server = http.createServer(app.callback());
-		let io = require('socket.io')(server);
-		require('../socket/socket')(io);
-		server.listen(port);
-	}
+	// if (cluster.isMaster) {
+	// 	for (let i = 0; i < numCPUs; i++) {
+	// 		cluster.fork();
+	// 	}
+	// 	cluster.on("exit", (worker, code, signal) => {
+	// 		console.error(`worker ${worker.process.pid} died, exit code is ${code}`);
+	// 	});
+	// } else {
+	// 	let server = http.createServer(app.callback());
+	// 	let io = require('socket.io')(server);
+	// 	require('../socket/socket')(io);
+	// 	server.listen(port);
+	// }
+	let server = http.createServer(app.callback());
+	let io = require('socket.io')(server);
+	require('../socket/socket')(io);
+	server.listen(port);
 }
