@@ -10,7 +10,7 @@ let nodes = [];
 for (let i = 0;i<8;++i){
 	let temp = [];
 	for (let j = 0;j<6;++j){
-		temp.push(md5((i+1)*(j+1)))
+		temp.push(`8666683506aacd900bbd5a74ac4edf${i}${j}`)
 	}
 	nodes.push(temp);
 }

@@ -7,6 +7,10 @@ const cpnEvent = require('../lib/cpnEvents');
 const getNodeStatus = require('../server/getNodeStatus');
 module.exports = (io)=>{
 	io.on('connect',function (socket) {
+		let data = getNodeStatus();
+		if(data){
+			socket.emit('nodeStatus',data);
+		}
 		cpnEvent.on('fileChange',function () {
 			let data = getNodeStatus();
 			if(data){
