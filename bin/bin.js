@@ -19,14 +19,15 @@ const fs = require('fs');
 const cpnEvent = require('../lib/cpnEvents');
 //监控文件是否修改
 fs.watchFile('../test/topo.txt', {
-	persistent:true
+	persistent:true,
+	interval:1000
 }, function(cur, pre) {
 	if (Date.parse(pre.ctime) === 0) {
 		console.log('文件被创建');
 	} else if (Date.parse(cur.ctime) === 0) {
 		console.log('文件被删除');
 	} else if (Date.parse(cur.mtime) !== Date.parse(pre.mtime)) {
-		console.log('文件被修改');
+		console.log((new Date()).toLocaleTimeString()+'文件被修改');
 		cpnEvent.emit('fileChange')
 	}
 });

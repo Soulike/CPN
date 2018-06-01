@@ -84,7 +84,7 @@ function generateTopo() {
 		}
 	}
 	fs.writeFileSync('../test/topo.txt',nodesTopoString);
-	console.log('topo.txt生成成功！');
+	console.log((new Date()).toLocaleTimeString()+'topo.txt生成成功！');
 }
 
 setInterval(generateTopo,2000);

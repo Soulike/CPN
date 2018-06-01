@@ -14,6 +14,7 @@ module.exports = (io)=>{
 		cpnEvent.on('fileChange',function () {
 			let data = getNodeStatus();
 			if(data){
+				console.log((new Date()).toLocaleTimeString()+'发送socket');
 				socket.emit('nodeStatus',data);
 			}
 		});
