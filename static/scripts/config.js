@@ -1,11 +1,1 @@
-const CODE = {
-    SUCCESS: 0,
-    SERVER_INTERNAL_ERROR: 500
-};
-
-const SERVER = {
-    DOMAIN: '127.0.0.1',
-    PORT: 3000
-};
-
-const DEBUG = true;
+'use strict';var CODE={SUCCESS:0,SERVER_INTERNAL_ERROR:500},SERVER={DOMAIN:'127.0.0.1',PORT:3e3},DEBUG=!0;

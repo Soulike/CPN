@@ -78,7 +78,7 @@ div.line
 {
     border-color: #AAA;
     outline-color: #AAA;
-    transition: 0.25s;
+    transition: 0.5s;
 }
 
 div.disconnected
@@ -95,10 +95,20 @@ div.connected
 
 div.connected.line
 {
-    background: linear-gradient(to bottom, #F00, #C00);
+    transition: 0.5s;
+}
+
+div.connected.hor-line
+{
+    background: linear-gradient(to bottom, #900, #B00, #F00, #B00, #900);
+}
+
+div.connected.vertical-line
+{
+    background: linear-gradient(to right, #900, #B00, #F00, #B00, #900);
 }
 
 div.connected.icon
 {
-    background: radial-gradient(#0F0, #0C0);
+    background: radial-gradient(#0F0, #0C0, #080);
 }

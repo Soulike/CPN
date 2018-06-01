@@ -15,11 +15,25 @@ $(async () =>
     if (code === CODE.SUCCESS)
     {
         const {nodes} = data;
+
+        //TODO: 生产环境去除
+        if (DEBUG)
+        {
+            console.log(`服务器发送节点数据`);
+            console.log(nodes);
+        }
+
         for (let i = 0; i < nodes.length; i++)
         {
             mapping[nodes[i].trim()] = i;   // 建立映射关系
         }
-        console.log(mapping);
+
+        //TODO: 生产环境去除
+        if (DEBUG)
+        {
+            console.log(`前端映射`);
+            console.log(mapping);
+        }
     }
 });
 
@@ -58,26 +72,39 @@ $(() =>
             processedLines[`${startSeq}-${endSeq}`] = true;
         }
 
-        console.log(processedLines);
+        // 清除所有无效数据（单向联通以及重复）
         for (const key in processedLines)
         {
             if (processedLines.hasOwnProperty(key))
             {
                 const nodeNums = key.split('-');
-                if (Object.is(processedLines[`${nodeNums[1]}-${nodeNums[0]}`], undefined))  // 如果反过来找不到，则删除本键
+                // 如果反过来找不到（单向联通），则删除本键
+                if (Object.is(processedLines[`${nodeNums[1]}-${nodeNums[0]}`], undefined))
+                {
+                    delete processedLines[key];
+                }
+                // 如果是双向联通的，且是重复数据，则删除本键
+                else if (parseInt(nodeNums[0]) > parseInt(nodeNums[1]))
                 {
                     delete processedLines[key];
                 }
             }
+
         }
 
-        console.log(processedLines);
-        /*筛选完毕后，将进行48x48的迭代。如果a-b在对象中不存在，就删除connected属性*/
-        for (let i = 0; i < 48; i++)
+        //TODO: 生产环境去除
+        if (DEBUG)
         {
-            for (let j = 0; j < 48; j++)
+            console.log(`新的连接状态`);
+            console.log(processedLines);
+        }
+
+        /*筛选完毕后，将进行迭代。如果a-b在对象中不存在，就删除connected属性*/
+        for (let i = 0; i < 42; i++)//出发点最大编号41
+        {
+            for (let j = i + 1; j < 48 && j - i <= 6; j++)//结束点最大编号48且两者最大差值6
             {
-                if (Math.abs(j - i) === 1 || Math.abs(j - i) === 6) // 相邻才做判断，否则忽略
+                if (j - i === 1 || j - i === 6) // 相邻才做判断，否则忽略
                 {
                     if (Object.is(processedLines[`${i}-${j}`], undefined))
                     {
@@ -91,4 +118,18 @@ $(() =>
             }
         }
     });
+});
+
+// 在所有节点中显示标号，调试用
+//TODO: 生产环境去除
+$(() =>
+{
+    if (DEBUG)
+    {
+        const $icons = $('.icon');
+        for (let icon of $icons)
+        {
+            $(icon).text($(icon).attr('data-nodeid'));
+        }
+    }
 });
