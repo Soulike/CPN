@@ -1,0 +1,142 @@
+.modal
+{
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border: #CCC solid 1px;
+    border-radius: 0.5rem;
+
+    box-shadow: #AAA 0.5rem 0.5rem 0.5rem;
+    background: #FFF;
+    z-index: 999999;
+}
+
+.modalHeaderArea
+{
+    font-size: 1.25rem;
+    border-bottom: #CCC solid 1px;
+    padding: 0.75rem 1.5rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    user-select: none;
+}
+
+.modalHeader
+{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.modalClose
+{
+    display: inline-block;
+    float: right;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.modalBody
+{
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem 0 1rem;
+}
+
+.modalFooter
+{
+    text-align: right;
+    padding: 0.5rem 0;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-top: #CCC solid 1px;
+}
+
+.btnArea{
+    margin-right: 1rem;
+}
+
+.btn
+{
+    font-size: 1rem;
+    padding: 0.3rem 1.25rem;
+    border-radius: 0.25rem;
+    border-style: solid;
+    color: #FFF;
+    cursor: pointer;
+    margin: 0 0.25rem;
+}
+
+.confirmBtn
+{
+    background-color: #007BFF;
+    border-color: #007BFF;
+}
+
+.confirmBtn:hover
+{
+    background-color: #0069D9;
+    border-color: #0062CC;
+}
+
+.cancelBtn
+{
+    background-color: #C82333;
+    border-color: #BD2130;
+}
+
+.cancelBtn:hover
+{
+    background-color: #C82333;
+    border-color: #BD2130;
+}
+
+.area, .radioArea
+{
+    margin: 0.75rem 0;
+    text-align: center;
+    width: 18rem;
+}
+
+.area:first-child, .radioArea:first-child
+{
+    margin-top: 0;
+}
+
+.area:last-child, .radioContent:last-child
+{
+    margin-bottom: 0;
+}
+
+input[type=checkbox]
+{
+    width: 1rem;
+    height: 1rem;
+    vertical-align: bottom;
+}
+
+input[type=text]
+{
+    border: #AAA solid 1px;
+    border-radius: 0.1rem;
+    transition: 0.1s;
+    margin-left: 0.5rem;
+}
+
+input[type=text]:hover, input[type=text]:focus
+{
+    border: #007BFF solid 1px;
+}
+
+input[type=text]:focus
+{
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.radioContent
+{
+    margin: 0 0.5rem;
+    display: inline-block;
+}

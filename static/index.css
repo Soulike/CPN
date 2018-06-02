@@ -3,7 +3,7 @@ html
     font-size: 15px;
 }
 
-div#main
+#main
 {
     min-width: 1280px;
     text-align: center;
@@ -13,30 +13,31 @@ div#main
     transform: translate(-50%, -50%);
 }
 
-div.icon, div.hor-line, div.vertical-short-line, div.vertical-long-line
+.icon, .hor-line, .vertical-short-line, .vertical-long-line
 {
     display: inline-block;
 }
 
-div.icon
+.icon
 {
-    outline: 1px solid black; /*For test*/
     width: 1rem;
     height: 1rem;
     font-size: 1rem;
+    cursor: pointer;
+    background-size: cover;
 }
 
-div.no-line-row > div.icon
+.no-line-row > .icon
 {
     margin-right: 10.25rem;
 }
 
-div.no-line-row > div.icon:last-child
+.no-line-row > .icon:last-child
 {
     margin-right: 0;
 }
 
-div.hor-line
+.hor-line
 {
     height: 0.5rem;
     width: 10rem;
@@ -46,7 +47,7 @@ div.hor-line
     border-bottom: 1px solid;
 }
 
-div.vertical-line
+.vertical-line
 {
     border-left: 1px solid;
     border-right: 1px solid;
@@ -54,61 +55,45 @@ div.vertical-line
     margin-right: 10.65rem;
 }
 
-div.vertical-short-line
+.vertical-short-line
 {
     height: 2.5rem;
 }
 
-div.vertical-short-line:last-child
+.vertical-short-line:last-child
 {
     margin-right: 0;
 }
 
-div.vertical-long-line
+.vertical-long-line
 {
     height: 5rem;
 }
 
-div.vertical-long-line:last-child
+.vertical-long-line:last-child
 {
     margin-right: 0;
 }
 
-div.line
+.line
 {
     border-color: #AAA;
     outline-color: #AAA;
     transition: 0.5s;
 }
 
-div.disconnected
-{
-    border-color: #CCC;
-    outline-color: #CCC;
-}
-
-div.connected
+.connected.line
 {
     border-color: #000;
-    outline-color: #000;
-}
-
-div.connected.line
-{
     transition: 0.5s;
 }
 
-div.connected.hor-line
+.connected.hor-line
 {
     background: linear-gradient(to bottom, #900, #B00, #F00, #B00, #900);
 }
 
-div.connected.vertical-line
+.connected.vertical-line
 {
     background: linear-gradient(to right, #900, #B00, #F00, #B00, #900);
-}
-
-div.connected.icon
-{
-    background: radial-gradient(#0F0, #0C0, #080);
 }
