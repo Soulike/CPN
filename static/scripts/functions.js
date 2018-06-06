@@ -37,7 +37,7 @@ async function PostAsync(router, dataObj = {})
  * }
  * */
 
-async function getInfo()
+async function getAllNodesInfo()
 {
     return new Promise((async (resolve, reject) =>
     {
@@ -51,6 +51,23 @@ async function getInfo()
                 getAll: info[0],
                 getType: info[1]
             });
+        }
+        catch (e)
+        {
+            reject(e);
+        }
+    }));
+}
+
+// nodeId为在页面上的id
+async function getNodeInfo(nodeId)
+{
+    return new Promise((async (resolve, reject) =>
+    {
+        try
+        {
+            const nodeOriginId = numberMapping[nodeId];
+            resolve(await getAsync('/cpn/nodes/getNodeInfo', {id: nodeOriginId}));
         }
         catch (e)
         {
@@ -93,4 +110,30 @@ async function fadeInAsync(selector, time)
             reject(e);
         }
     }));
+}
+
+async function showNotice(content, isSuccess = false)
+{
+    return new Promise((async (resolve, reject) =>
+    {
+        try
+        {
+            const $node = $(`<div class="notice ${isSuccess ? 'noticeSuccess' : 'noticeFailure'}">${content}</div>`);
+            const $body = $('body');
+            $node.css('display', 'none');
+            $body.append($node);
+            await fadeInAsync($node, 250);
+            setTimeout(async () =>
+            {
+                await fadeOutAsync($node, 250);
+                $node.remove();
+                resolve();
+            }, 1000);
+        }
+        catch (e)
+        {
+            reject(e);
+        }
+    }));
+
 }

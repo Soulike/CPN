@@ -1,5 +1,3 @@
-/*TODO: 根据不同结点种类显示不同图标；5X7版本；悬浮框，包含两个文本内容：ID、其他信息（待定）以及一个表单，包含一个文本框和是否选择框、确定取消*/
-
 /*启动请求所有结点的编号
  * 将结点编号转换为一个对象
  * {
@@ -8,14 +6,13 @@
  *     结点编号: 结点在页面上的映射编号
  * }
  * */
-
 let numberMapping = {};    // 结点实际编号与网页编号的映射关系
 
 $(async () =>
 {
     try
     {
-        const {getAll, getType} = await getInfo();
+        const {getAll, getType} = await getAllNodesInfo();
 
         // 建立页面结点与ID的映射
         if (getAll.code === CODE.SUCCESS)
@@ -41,25 +38,36 @@ $(async () =>
                 console.log(numberMapping);
             }
         }
+        else
+        {
+            showNotice(getAll.msg);
+        }
 
         // 显示结点类型对应图片
         if (getType.code === CODE.SUCCESS)
         {
             const {data} = getType;
+            const {TYPE} = DEVICE;
             for (const nodesId in data)
             {
                 if (data.hasOwnProperty(nodesId))
                 {
                     const nodeNum = numberMapping[nodesId.trim()];
                     const $icon = $(`.icon[data-nodeid=${nodeNum}]`);
-                    $icon.addClass(DEVICE_TYPE[data[nodesId]]);
+                    $icon.attr('data-devicetype', data[nodesId]);//把结点设备的种类记录到DOM上
+                    $icon.css('background-image', `url('./images/${TYPE[data[nodesId]]}.png')`);
                 }
             }
+        }
+        else
+        {
+            showNotice(getType.msg);
         }
     }
     catch (e)
     {
         console.log(e);
+        showNotice(MSG.ERROR);
     }
 });
 

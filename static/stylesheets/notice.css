@@ -1,0 +1,29 @@
+.notice
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999999;
+    width: 50%;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    font-size: 1.25rem;
+    border: #CCC solid 1px;
+    border-radius: 0.75rem;
+    background-color: #EEE;
+}
+
+.notice.noticeSuccess
+{
+    color: #155724;
+    background-color: #D4EDDA;
+    border-color: #C3E6CB;
+}
+
+.notice.noticeFailure
+{
+    color: #721C24;
+    background-color: #F8D7DA;
+    border-color: #F5C6CB;
+}
