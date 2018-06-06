@@ -42,8 +42,7 @@ response.data:{
 response.data = {
     '0291': 'balabala', // 一般的数据字段
     '0292': true, // 控制信号复选框字段，true 为开启，false 为关闭
-    '0293': ……
-}
+    '0293': '……'}
 ```
 
 ### 提交前端修改结点信息
@@ -58,7 +57,7 @@ response.data = {
 {
     id: 'balabala' // 32位设备ID
     data: {
-        '0291': balabala, // 一般的数据字段
+        '0291': 'balabala', // 一般的数据字段
         '0292': true, // 复选框数据，开是true，关是false
     }
 }
