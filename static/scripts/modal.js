@@ -15,15 +15,18 @@
  * */
 $(() =>
 {
-    try
+
+    const $icons = $('.icon');
+    const $main = $('#main');
+    $icons.click(async (e) =>
     {
-        const $icons = $('.icon');
-        const $main = $('#main');
-        $icons.click(async (e) =>
+        try
         {
             /*获得点击结点的ID和种类*/
             const nodeId = $(e.target).attr('data-nodeid');//得到结点页面ID
             const nodeType = $(e.target).attr('data-devicetype');//得到结点设备种类
+
+            const {code, msg, data} = await getNodeInfo(nodeId);
 
             const {top, left} = $(e.target).position();
             const $modal = $(`<div class="modal" data-fornodeid="1">
@@ -87,12 +90,7 @@ $(() =>
                     }
                 }
             }
-            const {code, msg, data} = await getNodeInfo(nodeId)
-                .catch(async (e) =>
-                {
-                    await showNotice('设备信息获取失败');
-                    console.log(e);
-                });
+
             if (code === CODE.SUCCESS)
             {
                 for (const paraId in data)
@@ -125,7 +123,6 @@ $(() =>
                                 $no.attr('checked', 'true');
                             }
                         }
-
                     }
                 }
             }
@@ -152,18 +149,13 @@ $(() =>
                 await fadeOutAsync($modal, 150);
                 $modal.remove();
             });
-
             $main.append($modal);
-
             await fadeInAsync($modal, 150);
-        });
-    }
-    catch (e)
-    {
-        showNotice(MSG.ERROR)
-            .then(() =>
-            {
-                console.log(e);
-            });
-    }
+        }
+        catch (e)
+        {
+            console.log(e);
+            await showNotice('设备信息获取失败');
+        }
+    });
 });
