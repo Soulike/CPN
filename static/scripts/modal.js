@@ -15,7 +15,6 @@
  * */
 $(() =>
 {
-
     const $icons = $('.icon');
     const $main = $('#main');
     $icons.click(async (e) =>
@@ -26,10 +25,9 @@ $(() =>
             const nodeId = $(e.target).attr('data-nodeid');//得到结点页面ID
             const nodeType = $(e.target).attr('data-devicetype');//得到结点设备种类
 
-            const {code, msg, data} = await getNodeInfo(nodeId);
+            const {top, left} = $(e.target).position();// 获得被点击结点在页面上的位置
 
-            const {top, left} = $(e.target).position();
-            const $modal = $(`<div class="modal" data-fornodeid="1">
+            const $modal = $(`<div class="modal" data-fornodeid="${nodeId}">
     <div class="modalHeaderArea">
         <div class="modalHeader">结点信息</div>
         <div class="modalClose">×</div>
@@ -40,7 +38,7 @@ $(() =>
     </div>
     <div class="modalFooter">
         <div class="btnArea">
-            <button class="btn confirmBtn">确定</button>
+            <button class="btn confirmBtn" data-fornodeid="${nodeId}">确定</button>
             <button class="btn cancelBtn">取消</button>
         </div>
     </div>
@@ -91,6 +89,7 @@ $(() =>
                 }
             }
 
+            const {code, msg, data} = await getNodeInfo(nodeId);//获取被点击的结点的信息
             if (code === CODE.SUCCESS)
             {
                 for (const paraId in data)
@@ -121,32 +120,109 @@ $(() =>
             {
                 await showNotice(msg);
             }
+            const {minLeft, minTop, maxLeft, maxTop} = await getModalMaxPosition();
 
             $modal.css({
                 display: 'none',
-                left: left,
-                top: top < 130 ? 130 : top > 400 ? 400 : top
+                position: 'absolute',
+                left: left < minLeft ? minLeft : left > maxLeft ? maxLeft : left,
+                top: top < minTop ? minTop : top > maxTop ? maxTop : top
             });
+
+            $main.append($modal);
 
             $modal.find('.modalClose').click(async (e) =>
             {
-                e.preventDefault();
-                await fadeOutAsync($modal, 150);
-                $modal.remove();
+                try
+                {
+                    e.preventDefault();
+                    await hideModal($modal);
+                }
+                catch (e)
+                {
+                    console.log(e);
+                }
             });
+
             $modal.find('.cancelBtn').click(async (e) =>
             {
-                e.preventDefault();
-                await fadeOutAsync($modal, 150);
-                $modal.remove();
+                try
+                {
+                    e.preventDefault();
+                    await hideModal($modal);
+                }
+                catch (e)
+                {
+                    console.log(e);
+                }
             });
-            $main.append($modal);
+
+            /*提交数据格式
+             * {
+             *     id: 设备的id
+             *     data: {
+             *         '0291': balabala,    // 字段数据
+             *         '0292': true,    // 复选框数据，开是true，关是false
+             *     }
+             * }
+             * */
+            $modal.find('.confirmBtn').click(async (e) =>
+            {
+                try
+                {
+                    e.preventDefault();
+                    const $formArea = $modal.find('.formArea');
+                    const $switches = $formArea.find('div[data-paratype=switch]');
+                    const $controls = $formArea.find('input[data-paratype=control]');
+
+                    let temp = {
+                        id: numberMapping[nodeId],
+                        data: {}
+                    };
+
+                    for (const s of $switches)
+                    {
+                        const $checked = $(s).find('input[checked=true]');
+                        const paraId = $(s).attr('data-paraid');
+                        const value = $checked.attr('value') === 'true';
+                        temp.data[paraId] = value;
+                    }
+
+                    for (const c of $controls)
+                    {
+                        const paraId = $(c).attr('data-paraid');
+                        const value = $(c).val();
+                        temp.data[paraId] = value;
+                    }
+
+                    const {code, msg, data} = await postAsync('/cpn/nodes/modalSubmit', temp);
+                    await showNotice(msg);
+                    if (code === CODE.SUCCESS)
+                    {
+                        await hideModal($modal);
+                    }
+                }
+                catch (e)
+                {
+                    console.log(e);
+                    await showNotice('设备信息修改失败')
+                        .catch(e =>
+                        {
+                            console.log(e);
+                        });
+                }
+            });
+
             await fadeInAsync($modal, 150);
         }
         catch (e)
         {
             console.log(e);
-            await showNotice('设备信息获取失败');
+            await showNotice('设备信息获取失败')
+                .catch(e =>
+                {
+                    console.log(e);
+                });
         }
     });
 });

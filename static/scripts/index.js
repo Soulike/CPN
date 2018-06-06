@@ -40,7 +40,7 @@ $(async () =>
         }
         else
         {
-            showNotice(getAll.msg);
+            await showNotice(getAll.msg);
         }
 
         // 显示结点类型对应图片
@@ -61,13 +61,17 @@ $(async () =>
         }
         else
         {
-            showNotice(getType.msg);
+            await showNotice(getType.msg);
         }
     }
     catch (e)
     {
         console.log(e);
-        showNotice(MSG.ERROR);
+        await showNotice(MSG.ERROR)
+            .catch(e =>
+            {
+                console.log(e);
+            });
     }
 });
 

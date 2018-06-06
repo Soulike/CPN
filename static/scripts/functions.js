@@ -14,7 +14,7 @@ async function getAsync(router, paramsObj = {})
     }));
 }
 
-async function PostAsync(router, dataObj = {})
+async function postAsync(router, dataObj = {})
 {
     return new Promise(((resolve, reject) =>
     {
@@ -135,5 +135,53 @@ async function showNotice(content, isSuccess = false)
             reject(e);
         }
     }));
+
+}
+
+async function hideModal(selector)
+{
+    return new Promise((async (resolve, reject) =>
+    {
+        try
+        {
+            await fadeOutAsync($(selector), 150);
+            $(selector).remove();
+            resolve();
+        }
+        catch (e)
+        {
+            reject(e);
+        }
+    }));
+}
+
+
+// 获取四个角结点的位置，以确定模态框放置的边界
+async function getModalMaxPosition()
+{
+    return new Promise((resolve, reject) =>
+    {
+        try
+        {
+            const pos0 = $('div[data-nodeid=0]').position();
+            const minLeft = pos0.left;
+            const minTop = pos0.top;
+            const pos47 = $('div[data-nodeid=47]').position();
+            const maxLeft = pos47.left;
+            const maxTop = pos47.top;
+            resolve(
+                {
+                    minLeft,
+                    minTop,
+                    maxLeft: maxLeft - 18 * EM,
+                    maxTop: maxTop - 16 * EM
+                }
+            );
+        }
+        catch (e)
+        {
+            reject(e);
+        }
+    });
 
 }

@@ -567,3 +567,5 @@ const DEVICE = {
 };
 
 const DEBUG = true;
+
+const EM = 15;

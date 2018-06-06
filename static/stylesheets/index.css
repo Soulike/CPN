@@ -1,16 +1,16 @@
 html
 {
     font-size: 15px;
+    overflow: auto;
 }
 
 #main
 {
-    min-width: 1280px;
+    min-width: 66.7rem;
     text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
 }
 
 .icon, .hor-line, .vertical-short-line, .vertical-long-line
@@ -20,16 +20,17 @@ html
 
 .icon
 {
-    width: 1rem;
-    height: 1rem;
+    width: 2rem;
+    height: 2rem;
     font-size: 1rem;
     cursor: pointer;
     background-size: cover;
+    border: #AAAAAA 1px solid;
 }
 
 .no-line-row > .icon
 {
-    margin-right: 10.25rem;
+    margin-right: 9.15rem;
 }
 
 .no-line-row > .icon:last-child
@@ -40,11 +41,12 @@ html
 .hor-line
 {
     height: 0.5rem;
-    width: 10rem;
+    width: 8.9rem;
     border-left: 0;
     border-right: 0;
     border-top: 1px solid;
     border-bottom: 1px solid;
+    transform: translateY(-100%);
 }
 
 .vertical-line
@@ -57,7 +59,7 @@ html
 
 .vertical-short-line
 {
-    height: 2.5rem;
+    height: 1.5rem;
 }
 
 .vertical-short-line:last-child
@@ -67,7 +69,7 @@ html
 
 .vertical-long-line
 {
-    height: 5rem;
+    height: 4rem;
 }
 
 .vertical-long-line:last-child
