@@ -53,7 +53,7 @@ $(() =>
             const {DATA, CONTROL, SWITCH} = PARAMETERS_TYPE;
             const parameters = PARAMETERS[nodeType];//取得所有参数列表
 
-            for (const paraId in parameters)
+            for (const paraId in parameters)//paraId 是不同参数的id
             {
                 if (parameters.hasOwnProperty(paraId))
                 {
@@ -64,25 +64,25 @@ $(() =>
                         {
                             const $node = $(`<div class="area">
  <span class="label">${name}</span>
- <span id="${paraId}Data"></span>
+ <span data-paratype="data" data-paraid="${paraId}"></span>
  </div>`);
                             $infoArea.append($node);
                             break;
                         }
                         case CONTROL:
                         {
-                            const $node = $(`<label class="control">${name}<input id="${paraId}Data" type="text"></label>`);
+                            const $node = $(`<label class="control">${name}<input data-paratype="control" data-paraid="${paraId}" type="text"></label>`);
                             $formArea.append($node);
                             break;
                         }
                         case SWITCH:
                         {
-                            const $node = $(`<div class="radioArea">
+                            const $node = $(`<div class="radioArea" data-paratype="switch" data-paraid="${paraId}">
  <span class="label">${name}</span>
  <label class="radio">
- <input type="radio" id="${paraId}Yes" value="true" name="${paraId}radio">开</label>
+ <input type="radio" value="true" name="${paraId}Radio">开</label>
  <label class="radio">
- <input type="radio" id="${paraId}No" value="false" name="${paraId}radio">关</label>
+ <input type="radio" value="false" name="${paraId}Radio">关</label>
  </div>`);
                             $formArea.append($node);
                             break;
@@ -97,30 +97,21 @@ $(() =>
                 {
                     if (data.hasOwnProperty(paraId))
                     {
-                        const $para = $(`#${paraId}Data`);
-                        const $yes = $(`#${paraId}Yes`);
-                        const $no = $(`#${paraId}No`);
+                        const $para = $(`*[data-paraid=${paraId}]`);
+
                         if ($para.length !== 0)
                         {
-                            if ($para.prop('tagName').toLowerCase() === 'input')
+                            if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paratype') === 'switch')
+                            {
+                                $para.find(`input[value=${data[paraId]}]`).prop('checked', 'true');
+                            }
+                            else if ($para.prop('tagName').toLowerCase() === 'input' && $para.attr('data-paratype') === 'control')
                             {
                                 $para.val(data[paraId]);
                             }
-                            else if ($para.prop('tagName').toLowerCase() === 'span')
+                            else if ($para.prop('tagName').toLowerCase() === 'span' && $para.attr('data-paratype') === 'data')
                             {
                                 $para.text(data[paraId]);
-                            }
-                        }
-                        else if ($yes.length !== 0 && $no.length !== 0)
-                        {
-                            // TODO: 如何决定选中谁，根据实际数据再进行修改
-                            if (data[paraId] === true)
-                            {
-                                $yes.attr('checked', 'true');
-                            }
-                            else
-                            {
-                                $no.attr('checked', 'true');
                             }
                         }
                     }
