@@ -12,7 +12,6 @@ $(async () =>
     try
     {
         const {getAll, getType} = await getAllNodesInfo();
-
         // 建立页面结点与ID的映射
         if (getAll.code === CODE.SUCCESS)
         {
@@ -54,7 +53,7 @@ $(async () =>
                 {
                     const nodeNum = originalIdToPageId[nodesId.trim()];
                     const $icon = $(`.icon[data-nodeid=${nodeNum}]`);
-                    $icon.attr('data-devicetype', data[nodesId]);//把结点设备的种类记录到DOM上
+                    $icon.attr('data-deviceType', data[nodesId]);//把结点设备的种类记录到DOM上
                     $icon.css('background-image', `url('./images/${TYPE[data[nodesId]]}.png')`);
                 }
             }
@@ -72,6 +71,19 @@ $(async () =>
             {
                 console.log(e);
             });
+    }
+    finally
+    {
+        /*测试用显示设备类型 TODO: 生产环境去除*/
+        if (DEBUG)
+        {
+            const $icons = $('.icon');
+            for (const icon of $icons)
+            {
+                const deviceType = $(icon).attr('data-deviceType');
+                $(icon).text(DEVICE.NAME_FOR_TEST[deviceType]);
+            }
+        }
     }
 });
 
@@ -157,3 +169,4 @@ $(() =>
         }
     });
 });
+

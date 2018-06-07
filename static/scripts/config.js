@@ -35,6 +35,21 @@ const DEVICE = {
         11: 'corridor',
         12: 'room'
     },
+
+    NAME_FOR_TEST: {
+        1: '冷机组',
+        2: '换热器',
+        3: '冷冻泵',
+        4: '冷却泵',
+        5: '分集水',
+        6: '冷却塔',
+        7: '膨胀箱',
+        8: '定压补',
+        9: '空调组',
+        10: '电梯',
+        11: '走廊',
+        12: '房间'
+    },
     /*所有类型结设备的参数列表
      * 每个参数包含type和name
      * type：种类，目前是数据、控制和开关，对应数据显示、text和radio
@@ -1070,4 +1085,4 @@ const DEBUG = true;
 const EM = 15;
 
 let originalIdToPageId = {};    // 结点实际编号与网页编号的映射关系
-let pageIdToOriginalId = {};
+let pageIdToOriginalId = {}; 

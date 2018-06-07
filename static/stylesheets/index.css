@@ -22,10 +22,14 @@ html
 {
     width: 2rem;
     height: 2rem;
-    font-size: 1rem;
     cursor: pointer;
     background-size: cover;
     border: #AAAAAA 1px solid;
+
+    /*以下测试用*/
+    font-size: 0.66rem;
+    line-height: 2rem;
+    vertical-align: 40%;
 }
 
 .no-line-row > .icon

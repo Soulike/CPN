@@ -52,11 +52,12 @@ $(() =>
             const {DATA, CONTROL, SWITCH} = PARAMETERS_TYPE;
             const parameters = PARAMETERS[nodeType];//取得所有参数列表
 
-            for (const paraId in parameters)//paraId 是不同参数的id
+            for (let paraId in parameters)//paraId 是不同参数的id
             {
                 if (parameters.hasOwnProperty(paraId))
                 {
                     const {type, name} = parameters[paraId];
+                    paraId = parseInt(paraId, 16) >= parseInt('029A', 16) ? paraId.toString() : `0${paraId}`;
                     switch (type)//根据type，添加不同内容
                     {
                         case DATA:
@@ -99,7 +100,6 @@ $(() =>
                     {
                         paraId = paraId.toUpperCase();
                         const $para = $modalBody.find(`*[data-paraid="${paraId}"]`);
-                        console.log($para);
                         if ($para.length !== 0)
                         {
                             if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paratype') === 'switch')
