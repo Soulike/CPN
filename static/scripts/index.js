@@ -57,6 +57,7 @@ $(async () =>
                     $icon.css('background-image', `url('./images/${TYPE[data[nodesId]]}.png')`);
                     console.log(nodesId);
                     console.log(data[nodesId]);
+                    console.log(TYPE[data[nodesId]]);
                 }
             }
         }
