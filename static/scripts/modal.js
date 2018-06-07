@@ -58,7 +58,8 @@ $(() =>
                 {
                     paraId.trim();
                     const {type, name} = parameters[paraId];
-                    paraId = parseInt(paraId, 16) >= parseInt('029A', 16) ? paraId.toString() : `0${paraId}`;
+                    /*TODO: 启用babel后开启
+                    paraId = parseInt(paraId, 16) >= parseInt('029A', 16) ? paraId.toString() : `0${paraId}`;*/
                     switch (type)//根据type，添加不同内容
                     {
                         case DATA:
@@ -102,17 +103,19 @@ $(() =>
                         paraId = paraId.trim();
                         paraId = paraId.toUpperCase();
                         const $para = $modalBody.find(`*[data-paraid="${paraId}"]`);
+                        console.log(paraId);
+                        console.log($para);
                         if ($para.length !== 0)
                         {
-                            if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paraType') === 'switch')
+                            if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paratype') === 'switch')
                             {
                                 $para.find(`input[value=${data[paraId]}]`).prop('checked', 'true');
                             }
-                            else if ($para.prop('tagName').toLowerCase() === 'input' && $para.attr('data-paraType') === 'control')
+                            else if ($para.prop('tagName').toLowerCase() === 'input' && $para.attr('data-paratype') === 'control')
                             {
                                 $para.val(data[paraId]);
                             }
-                            else if ($para.prop('tagName').toLowerCase() === 'span' && $para.attr('data-paraType') === 'data')
+                            else if ($para.prop('tagName').toLowerCase() === 'span' && $para.attr('data-paratype') === 'data')
                             {
                                 $para.text(data[paraId]);
                             }
