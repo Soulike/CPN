@@ -135,7 +135,7 @@ input[type=text]
     transition: 0.1s;
     margin-top: 0.5rem;
     text-align: center;
-    width: 100%;
+    width: 80%;
 }
 
 input[type=text]:hover, input[type=text]:focus
