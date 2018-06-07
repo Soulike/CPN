@@ -1,1 +1,423 @@
-'use strict';function _asyncToGenerator(a){return function(){var b=a.apply(this,arguments);return new Promise(function(d,f){function g(h,i){try{var j=b[h](i),k=j.value}catch(l){return void f(l)}return j.done?void d(k):Promise.resolve(k).then(function(l){g('next',l)},function(l){g('throw',l)})}return g('next')})}}$(function(){var a=$('.icon'),b=$('#main');a.click(function(){var d=_asyncToGenerator(regeneratorRuntime.mark(function f(g){var h,i,j,k,l,m,n,o,p,q,r,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P;return regeneratorRuntime.wrap(function(R){for(;;)switch(R.prev=R.next){case 0:R.prev=0,h=$(g.target).attr('data-nodeid'),i=$(g.target).attr('data-devicetype'),j=$(g.target).position(),k=j.top,l=j.left,m=$('<div class="modal" data-fornodeid="'+h+'">\n    <div class="modalHeaderArea">\n        <div class="modalHeader">\u7ED3\u70B9\u4FE1\u606F</div>\n        <div class="modalClose">\xD7</div>\n    </div>\n    <div class="modalBody">\n        <div class="area infoArea"></div>\n        <div class="area formArea"></div>\n    </div>\n    <div class="modalFooter">\n        <div class="btnArea">\n            <button class="btn confirmBtn" data-fornodeid="'+h+'">\u786E\u5B9A</button>\n            <button class="btn cancelBtn">\u53D6\u6D88</button>\n        </div>\n    </div>\n</div>'),n=m.find('.modalBody'),o=m.find('.infoArea'),p=m.find('.formArea'),q=DEVICE,r=q.PARAMETERS,t=PARAMETERS_TYPE,u=t.DATA,v=t.CONTROL,w=t.SWITCH,x=r[i],R.t0=regeneratorRuntime.keys(x);case 12:if((R.t1=R.t0()).done){R.next=31;break}if(y=R.t1.value,!x.hasOwnProperty(y)){R.next=29;break}z=x[y],A=z.type,B=z.name,y=parseInt(y,16)>=parseInt('029A',16)?y.toString():'0'+y,R.t2=A,R.next=R.t2===u?20:R.t2===v?23:R.t2===w?26:29;break;case 20:return C=$('<div class="area">\n <span class="label">'+B+'</span>\n <span data-paratype="data" data-paraid="'+y+'"></span>\n </div>'),o.append(C),R.abrupt('break',29);case 23:return D=$('<label class="control area">'+B+'<input data-paratype="control" data-paraid="'+y+'" type="text"></label>'),p.append(D),R.abrupt('break',29);case 26:return E=$('<div class="radioArea" data-paratype="switch" data-paraid="'+y+'">\n <span class="label">'+B+'</span>\n <label class="radio">\n <input type="radio" value="true" name="'+y+'Radio">\u5F00</label>\n <label class="radio">\n <input type="radio" value="false" name="'+y+'Radio">\u5173</label>\n </div>'),p.append(E),R.abrupt('break',29);case 29:R.next=12;break;case 31:return R.next=33,getNodeInfo(h);case 33:if(F=R.sent,G=F.code,H=F.msg,I=F.data,G!==CODE.SUCCESS){R.next=55;break}for(J in I)I.hasOwnProperty(J)&&(J=J.toUpperCase(),K=n.find('*[data-paraid="'+J+'"]'),0!==K.length&&('div'===K.prop('tagName').toLowerCase()&&'switch'===K.attr('data-paratype')?K.find('input[value='+I[J]+']').prop('checked','true'):'input'===K.prop('tagName').toLowerCase()&&'control'===K.attr('data-paratype')?K.val(I[J]):'span'===K.prop('tagName').toLowerCase()&&'data'===K.attr('data-paratype')&&K.text(I[J])));return R.next=41,getModalMaxPosition();case 41:return L=R.sent,M=L.minLeft,N=L.minTop,O=L.maxLeft,P=L.maxTop,m.css({display:'none',position:'absolute',left:l<M?M:l>O?O:l,top:k<N?N:k>P?P:k}),b.append(m),m.find('.modalClose').click(function(){var S=_asyncToGenerator(regeneratorRuntime.mark(function T(U){return regeneratorRuntime.wrap(function(W){for(;;)switch(W.prev=W.next){case 0:return W.prev=0,U.preventDefault(),W.next=4,hideModal(m);case 4:W.next=9;break;case 6:W.prev=6,W.t0=W['catch'](0),console.log(W.t0);case 9:case'end':return W.stop();}},T,void 0,[[0,6]])}));return function(){return S.apply(this,arguments)}}()),m.find('.cancelBtn').click(function(){var S=_asyncToGenerator(regeneratorRuntime.mark(function T(U){return regeneratorRuntime.wrap(function(W){for(;;)switch(W.prev=W.next){case 0:return W.prev=0,U.preventDefault(),W.next=4,hideModal(m);case 4:W.next=9;break;case 6:W.prev=6,W.t0=W['catch'](0),console.log(W.t0);case 9:case'end':return W.stop();}},T,void 0,[[0,6]])}));return function(){return S.apply(this,arguments)}}()),m.find('.confirmBtn').click(function(){var S=_asyncToGenerator(regeneratorRuntime.mark(function T(U){var V,W,X,Y,Z,_,aa,ba,ca,da,ea,fa,ga,ha,ia,ja,ka,la,ma,na,oa,pa,qa;return regeneratorRuntime.wrap(function(sa){for(;;)switch(sa.prev=sa.next){case 0:sa.prev=0,U.preventDefault(),V=m.find('.formArea'),W=V.find('div[data-paratype=switch]'),X=V.find('input[data-paratype=control]'),Y={id:getOriginalId(h),data:{}},Z=W,_=Array.isArray(Z),aa=0,Z=_?Z:Z[Symbol.iterator]();case 7:if(!_){sa.next=13;break}if(!(aa>=Z.length)){sa.next=10;break}return sa.abrupt('break',24);case 10:ba=Z[aa++],sa.next=17;break;case 13:if(aa=Z.next(),!aa.done){sa.next=16;break}return sa.abrupt('break',24);case 16:ba=aa.value;case 17:ca=ba,da=$(ca).find('input[checked=true]'),ea=$(ca).attr('data-paraid'),fa='true'===da.attr('value'),Y.data[ea]=fa;case 22:sa.next=7;break;case 24:ga=X,ha=Array.isArray(ga),ia=0,ga=ha?ga:ga[Symbol.iterator]();case 25:if(!ha){sa.next=31;break}if(!(ia>=ga.length)){sa.next=28;break}return sa.abrupt('break',41);case 28:ja=ga[ia++],sa.next=35;break;case 31:if(ia=ga.next(),!ia.done){sa.next=34;break}return sa.abrupt('break',41);case 34:ja=ia.value;case 35:ka=ja,la=$(ka).attr('data-paraid'),ma=$(ka).val(),Y.data[la]=ma;case 39:sa.next=25;break;case 41:return sa.next=43,postAsync('/cpn/node/modify',Y);case 43:return na=sa.sent,oa=na.code,pa=na.msg,qa=na.data,sa.next=49,showNotice(pa,oa===CODE.SUCCESS);case 49:if(oa!==CODE.SUCCESS){sa.next=52;break}return sa.next=52,hideModal(m);case 52:sa.next=59;break;case 54:return sa.prev=54,sa.t0=sa['catch'](0),console.log(sa.t0),sa.next=59,showNotice('\u8BBE\u5907\u4FE1\u606F\u4FEE\u6539\u5931\u8D25').catch(function(ta){console.log(ta)});case 59:case'end':return sa.stop();}},T,void 0,[[0,54]])}));return function(){return S.apply(this,arguments)}}()),R.next=53,fadeInAsync(m,150);case 53:R.next=57;break;case 55:return R.next=57,showNotice(H);case 57:R.next=64;break;case 59:return R.prev=59,R.t3=R['catch'](0),console.log(R.t3),R.next=64,showNotice('\u8BBE\u5907\u4FE1\u606F\u83B7\u53D6\u5931\u8D25').catch(function(S){console.log(S)});case 64:case'end':return R.stop();}},f,void 0,[[0,59]])}));return function(){return d.apply(this,arguments)}}())});
+'use strict';
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+// 点击结点，在对应位置显示悬浮窗
+/*
+ * <div class="area">
+ <span>ID:</span>
+ <span class="nodeId">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+ </div>
+
+ <label>输入框标签<input type="text"></label>
+
+ <div class="radioArea">
+ <span class="radioContent">标签</span>
+ <label class="radioContent"><input type="checkbox">是</label>
+ <label class="radioContent"><input type="checkbox">否</label>
+ </div>
+ * */
+$(function () {
+    var $icons = $('.icon');
+    var $main = $('#main');
+    $icons.click(function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(e) {
+            var pageId, nodeType, _$$position, top, left, $modal, $modalBody, $infoArea, $formArea, _DEVICE, PARAMETERS, _PARAMETERS_TYPE, DATA, CONTROL, SWITCH, parameters, paraId, _parameters$paraId, type, name, $node, _$node, _$node2, _ref2, code, msg, data, _paraId, $para, _ref3, minLeft, minTop, maxLeft, maxTop;
+
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                    switch (_context4.prev = _context4.next) {
+                        case 0:
+                            _context4.prev = 0;
+
+                            /*获得点击结点的ID和种类*/
+                            pageId = $(e.target).attr('data-nodeid'); //得到结点页面ID
+
+                            nodeType = $(e.target).attr('data-devicetype'); //得到结点设备种类
+
+                            _$$position = $(e.target).position(), top = _$$position.top, left = _$$position.left; // 获得被点击结点在页面上的位置
+
+                            $modal = $('<div class="modal" data-fornodeid="' + pageId + '">\n    <div class="modalHeaderArea">\n        <div class="modalHeader">\u7ED3\u70B9\u4FE1\u606F</div>\n        <div class="modalClose">\xD7</div>\n    </div>\n    <div class="modalBody">\n        <div class="area infoArea"></div>\n        <div class="area formArea"></div>\n    </div>\n    <div class="modalFooter">\n        <div class="btnArea">\n            <button class="btn confirmBtn" data-fornodeid="' + pageId + '">\u786E\u5B9A</button>\n            <button class="btn cancelBtn">\u53D6\u6D88</button>\n        </div>\n    </div>\n</div>');
+
+                            /*在modal body当中存放适当的内容*/
+
+                            $modalBody = $modal.find('.modalBody');
+                            $infoArea = $modal.find('.infoArea');
+                            $formArea = $modal.find('.formArea');
+                            _DEVICE = DEVICE, PARAMETERS = _DEVICE.PARAMETERS;
+                            _PARAMETERS_TYPE = PARAMETERS_TYPE, DATA = _PARAMETERS_TYPE.DATA, CONTROL = _PARAMETERS_TYPE.CONTROL, SWITCH = _PARAMETERS_TYPE.SWITCH;
+                            parameters = PARAMETERS[nodeType]; //取得所有参数列表
+
+                            _context4.t0 = regeneratorRuntime.keys(parameters);
+
+                        case 12:
+                            if ((_context4.t1 = _context4.t0()).done) {
+                                _context4.next = 31;
+                                break;
+                            }
+
+                            paraId = _context4.t1.value;
+
+                            if (!parameters.hasOwnProperty(paraId)) {
+                                _context4.next = 29;
+                                break;
+                            }
+
+                            _parameters$paraId = parameters[paraId], type = _parameters$paraId.type, name = _parameters$paraId.name;
+
+                            paraId = parseInt(paraId, 16) >= parseInt('029A', 16) ? paraId.toString() : '0' + paraId;
+                            _context4.t2 = type;
+                            _context4.next = _context4.t2 === DATA ? 20 : _context4.t2 === CONTROL ? 23 : _context4.t2 === SWITCH ? 26 : 29;
+                            break;
+
+                        case 20:
+                            $node = $('<div class="area">\n <span class="label">' + name + '</span>\n <span data-paratype="data" data-paraid="' + paraId + '"></span>\n </div>');
+
+                            $infoArea.append($node);
+                            return _context4.abrupt('break', 29);
+
+                        case 23:
+                            _$node = $('<label class="control area">' + name + '<input data-paratype="control" data-paraid="' + paraId + '" type="text"></label>');
+
+                            $formArea.append(_$node);
+                            return _context4.abrupt('break', 29);
+
+                        case 26:
+                            _$node2 = $('<div class="radioArea" data-paratype="switch" data-paraid="' + paraId + '">\n <span class="label">' + name + '</span>\n <label class="radio">\n <input type="radio" value="true" name="' + paraId + 'Radio">\u5F00</label>\n <label class="radio">\n <input type="radio" value="false" name="' + paraId + 'Radio">\u5173</label>\n </div>');
+
+                            $formArea.append(_$node2);
+                            return _context4.abrupt('break', 29);
+
+                        case 29:
+                            _context4.next = 12;
+                            break;
+
+                        case 31:
+                            _context4.next = 33;
+                            return getNodeInfo(pageId);
+
+                        case 33:
+                            _ref2 = _context4.sent;
+                            code = _ref2.code;
+                            msg = _ref2.msg;
+                            data = _ref2.data;
+
+                            if (!(code === CODE.SUCCESS)) {
+                                _context4.next = 55;
+                                break;
+                            }
+
+                            for (_paraId in data) {
+                                if (data.hasOwnProperty(_paraId)) {
+                                    _paraId = _paraId.toUpperCase();
+                                    $para = $modalBody.find('*[data-paraid="' + _paraId + '"]');
+
+                                    if ($para.length !== 0) {
+                                        if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paratype') === 'switch') {
+                                            $para.find('input[value=' + data[_paraId] + ']').prop('checked', 'true');
+                                        } else if ($para.prop('tagName').toLowerCase() === 'input' && $para.attr('data-paratype') === 'control') {
+                                            $para.val(data[_paraId]);
+                                        } else if ($para.prop('tagName').toLowerCase() === 'span' && $para.attr('data-paratype') === 'data') {
+                                            $para.text(data[_paraId]);
+                                        }
+                                    }
+                                }
+                            }
+
+                            _context4.next = 41;
+                            return getModalMaxPosition();
+
+                        case 41:
+                            _ref3 = _context4.sent;
+                            minLeft = _ref3.minLeft;
+                            minTop = _ref3.minTop;
+                            maxLeft = _ref3.maxLeft;
+                            maxTop = _ref3.maxTop;
+
+
+                            $modal.css({
+                                display: 'none',
+                                position: 'absolute',
+                                left: left < minLeft ? minLeft : left > maxLeft ? maxLeft : left,
+                                top: top < minTop ? minTop : top > maxTop ? maxTop : top
+                            });
+
+                            $main.append($modal);
+
+                            $modal.find('.modalClose').click(function () {
+                                var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
+                                    return regeneratorRuntime.wrap(function _callee$(_context) {
+                                        while (1) {
+                                            switch (_context.prev = _context.next) {
+                                                case 0:
+                                                    _context.prev = 0;
+
+                                                    e.preventDefault();
+                                                    _context.next = 4;
+                                                    return hideModal($modal);
+
+                                                case 4:
+                                                    _context.next = 9;
+                                                    break;
+
+                                                case 6:
+                                                    _context.prev = 6;
+                                                    _context.t0 = _context['catch'](0);
+
+                                                    console.log(_context.t0);
+
+                                                case 9:
+                                                case 'end':
+                                                    return _context.stop();
+                                            }
+                                        }
+                                    }, _callee, undefined, [[0, 6]]);
+                                }));
+
+                                return function (_x2) {
+                                    return _ref4.apply(this, arguments);
+                                };
+                            }());
+
+                            $modal.find('.cancelBtn').click(function () {
+                                var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
+                                    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                                        while (1) {
+                                            switch (_context2.prev = _context2.next) {
+                                                case 0:
+                                                    _context2.prev = 0;
+
+                                                    e.preventDefault();
+                                                    _context2.next = 4;
+                                                    return hideModal($modal);
+
+                                                case 4:
+                                                    _context2.next = 9;
+                                                    break;
+
+                                                case 6:
+                                                    _context2.prev = 6;
+                                                    _context2.t0 = _context2['catch'](0);
+
+                                                    console.log(_context2.t0);
+
+                                                case 9:
+                                                case 'end':
+                                                    return _context2.stop();
+                                            }
+                                        }
+                                    }, _callee2, undefined, [[0, 6]]);
+                                }));
+
+                                return function (_x3) {
+                                    return _ref5.apply(this, arguments);
+                                };
+                            }());
+
+                            /*提交数据格式
+                             * {
+                             *     id: 设备的id
+                             *     data: {
+                             *         '0291': balabala,    // 字段数据
+                             *         '0292': true,    // 复选框数据，开是true，关是false
+                             *     }
+                             * }
+                             * */
+                            $modal.find('.confirmBtn').click(function () {
+                                var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(e) {
+                                    var _$formArea, $switches, $controls, temp, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, s, $checked, _paraId2, value, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, c, _paraId3, _ref7, _code, _msg, _data;
+
+                                    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                                        while (1) {
+                                            switch (_context3.prev = _context3.next) {
+                                                case 0:
+                                                    _context3.prev = 0;
+
+                                                    e.preventDefault();
+                                                    _$formArea = $modal.find('.formArea');
+                                                    $switches = _$formArea.find('div[data-paratype=switch]');
+                                                    $controls = _$formArea.find('input[data-paratype=control]');
+                                                    temp = {
+                                                        id: getOriginalId(pageId),
+                                                        data: {}
+                                                    };
+                                                    _iteratorNormalCompletion = true;
+                                                    _didIteratorError = false;
+                                                    _iteratorError = undefined;
+                                                    _context3.prev = 9;
+
+
+                                                    for (_iterator = $switches[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                                                        s = _step.value;
+                                                        $checked = $(s).find('input[checked=true]');
+                                                        _paraId2 = $(s).attr('data-paraid');
+                                                        value = $checked.attr('value') === 'true';
+
+                                                        temp.data[_paraId2] = value;
+                                                    }
+
+                                                    _context3.next = 17;
+                                                    break;
+
+                                                case 13:
+                                                    _context3.prev = 13;
+                                                    _context3.t0 = _context3['catch'](9);
+                                                    _didIteratorError = true;
+                                                    _iteratorError = _context3.t0;
+
+                                                case 17:
+                                                    _context3.prev = 17;
+                                                    _context3.prev = 18;
+
+                                                    if (!_iteratorNormalCompletion && _iterator.return) {
+                                                        _iterator.return();
+                                                    }
+
+                                                case 20:
+                                                    _context3.prev = 20;
+
+                                                    if (!_didIteratorError) {
+                                                        _context3.next = 23;
+                                                        break;
+                                                    }
+
+                                                    throw _iteratorError;
+
+                                                case 23:
+                                                    return _context3.finish(20);
+
+                                                case 24:
+                                                    return _context3.finish(17);
+
+                                                case 25:
+                                                    _iteratorNormalCompletion2 = true;
+                                                    _didIteratorError2 = false;
+                                                    _iteratorError2 = undefined;
+                                                    _context3.prev = 28;
+                                                    for (_iterator2 = $controls[Symbol.iterator](); !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                                                        c = _step2.value;
+                                                        _paraId3 = $(c).attr('data-paraid');
+                                                        value = $(c).val();
+
+                                                        temp.data[_paraId3] = value;
+                                                    }
+
+                                                    _context3.next = 36;
+                                                    break;
+
+                                                case 32:
+                                                    _context3.prev = 32;
+                                                    _context3.t1 = _context3['catch'](28);
+                                                    _didIteratorError2 = true;
+                                                    _iteratorError2 = _context3.t1;
+
+                                                case 36:
+                                                    _context3.prev = 36;
+                                                    _context3.prev = 37;
+
+                                                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                                                        _iterator2.return();
+                                                    }
+
+                                                case 39:
+                                                    _context3.prev = 39;
+
+                                                    if (!_didIteratorError2) {
+                                                        _context3.next = 42;
+                                                        break;
+                                                    }
+
+                                                    throw _iteratorError2;
+
+                                                case 42:
+                                                    return _context3.finish(39);
+
+                                                case 43:
+                                                    return _context3.finish(36);
+
+                                                case 44:
+                                                    _context3.next = 46;
+                                                    return postAsync('/cpn/node/modify', temp);
+
+                                                case 46:
+                                                    _ref7 = _context3.sent;
+                                                    _code = _ref7.code;
+                                                    _msg = _ref7.msg;
+                                                    _data = _ref7.data;
+                                                    _context3.next = 52;
+                                                    return showNotice(_msg, _code === CODE.SUCCESS);
+
+                                                case 52:
+                                                    if (!(_code === CODE.SUCCESS)) {
+                                                        _context3.next = 55;
+                                                        break;
+                                                    }
+
+                                                    _context3.next = 55;
+                                                    return hideModal($modal);
+
+                                                case 55:
+                                                    _context3.next = 62;
+                                                    break;
+
+                                                case 57:
+                                                    _context3.prev = 57;
+                                                    _context3.t2 = _context3['catch'](0);
+
+                                                    console.log(_context3.t2);
+                                                    _context3.next = 62;
+                                                    return showNotice('设备信息修改失败').catch(function (e) {
+                                                        console.log(e);
+                                                    });
+
+                                                case 62:
+                                                case 'end':
+                                                    return _context3.stop();
+                                            }
+                                        }
+                                    }, _callee3, undefined, [[0, 57], [9, 13, 17, 25], [18,, 20, 24], [28, 32, 36, 44], [37,, 39, 43]]);
+                                }));
+
+                                return function (_x4) {
+                                    return _ref6.apply(this, arguments);
+                                };
+                            }());
+
+                            _context4.next = 53;
+                            return fadeInAsync($modal, 150);
+
+                        case 53:
+                            _context4.next = 57;
+                            break;
+
+                        case 55:
+                            _context4.next = 57;
+                            return showNotice(msg);
+
+                        case 57:
+                            _context4.next = 64;
+                            break;
+
+                        case 59:
+                            _context4.prev = 59;
+                            _context4.t3 = _context4['catch'](0);
+
+                            console.log(_context4.t3);
+                            _context4.next = 64;
+                            return showNotice('设备信息获取失败').catch(function (e) {
+                                console.log(e);
+                            });
+
+                        case 64:
+                        case 'end':
+                            return _context4.stop();
+                    }
+                }
+            }, _callee4, undefined, [[0, 59]]);
+        }));
+
+        return function (_x) {
+            return _ref.apply(this, arguments);
+        };
+    }());
+});
