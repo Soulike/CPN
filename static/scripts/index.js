@@ -6,7 +6,6 @@
  *     结点编号: 结点在页面上的映射编号
  * }
  * */
-let numberMapping = {};    // 结点实际编号与网页编号的映射关系
 
 $(async () =>
 {
@@ -28,14 +27,15 @@ $(async () =>
 
             for (let i = 0; i < nodes.length; i++)
             {
-                numberMapping[nodes[i].trim()] = i;   // 建立映射关系
+                originalIdToPageId[nodes[i].trim()] = i;   // 建立映射关系
+                pageIdToOriginalId[i] = nodes[i].trim();
             }
 
             //TODO: 生产环境去除
             if (DEBUG)
             {
                 console.log(`前端映射`);
-                console.log(numberMapping);
+                console.log(originalIdToPageId);
             }
         }
         else
@@ -52,7 +52,7 @@ $(async () =>
             {
                 if (data.hasOwnProperty(nodesId))
                 {
-                    const nodeNum = numberMapping[nodesId.trim()];
+                    const nodeNum = originalIdToPageId[nodesId.trim()];
                     const $icon = $(`.icon[data-nodeid=${nodeNum}]`);
                     $icon.attr('data-devicetype', data[nodesId]);//把结点设备的种类记录到DOM上
                     $icon.css('background-image', `url('./images/${TYPE[data[nodesId]]}.png')`);
@@ -105,8 +105,8 @@ $(() =>
         for (const {startNode, endNode} of data)    // 结点的实际编号
         {
             // 得到映射关系
-            startSeq = numberMapping[startNode];
-            endSeq = numberMapping[endNode];
+            startSeq = originalIdToPageId[startNode];
+            endSeq = originalIdToPageId[endNode];
             processedLines[`${startSeq}-${endSeq}`] = true;
         }
 

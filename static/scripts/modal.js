@@ -69,7 +69,7 @@ $(() =>
                         }
                         case CONTROL:
                         {
-                            const $node = $(`<label class="control">${name}<input data-paratype="control" data-paraid="${paraId}" type="text"></label>`);
+                            const $node = $(`<label class="control area">${name}<input data-paratype="control" data-paraid="${paraId}" type="text"></label>`);
                             $formArea.append($node);
                             break;
                         }
@@ -96,8 +96,7 @@ $(() =>
                 {
                     if (data.hasOwnProperty(paraId))
                     {
-                        const $para = $(`*[data-paraid=${paraId}]`);
-
+                        const $para = $infoArea.find(`*[data-paraid="${paraId}"]`);
                         if ($para.length !== 0)
                         {
                             if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paratype') === 'switch')
@@ -115,105 +114,106 @@ $(() =>
                         }
                     }
                 }
+
+                const {minLeft, minTop, maxLeft, maxTop} = await getModalMaxPosition();
+
+                $modal.css({
+                    display: 'none',
+                    position: 'absolute',
+                    left: left < minLeft ? minLeft : left > maxLeft ? maxLeft : left,
+                    top: top < minTop ? minTop : top > maxTop ? maxTop : top
+                });
+
+                $main.append($modal);
+
+                $modal.find('.modalClose').click(async (e) =>
+                {
+                    try
+                    {
+                        e.preventDefault();
+                        await hideModal($modal);
+                    }
+                    catch (e)
+                    {
+                        console.log(e);
+                    }
+                });
+
+                $modal.find('.cancelBtn').click(async (e) =>
+                {
+                    try
+                    {
+                        e.preventDefault();
+                        await hideModal($modal);
+                    }
+                    catch (e)
+                    {
+                        console.log(e);
+                    }
+                });
+
+                /*提交数据格式
+                 * {
+                 *     id: 设备的id
+                 *     data: {
+                 *         '0291': balabala,    // 字段数据
+                 *         '0292': true,    // 复选框数据，开是true，关是false
+                 *     }
+                 * }
+                 * */
+                $modal.find('.confirmBtn').click(async (e) =>
+                {
+                    try
+                    {
+                        e.preventDefault();
+                        const $formArea = $modal.find('.formArea');
+                        const $switches = $formArea.find('div[data-paratype=switch]');
+                        const $controls = $formArea.find('input[data-paratype=control]');
+
+                        let temp = {
+                            id: originalIdToPageId[nodeId],
+                            data: {}
+                        };
+
+                        for (const s of $switches)
+                        {
+                            const $checked = $(s).find('input[checked=true]');
+                            const paraId = $(s).attr('data-paraid');
+                            const value = $checked.attr('value') === 'true';
+                            temp.data[paraId] = value;
+                        }
+
+                        for (const c of $controls)
+                        {
+                            const paraId = $(c).attr('data-paraid');
+                            const value = $(c).val();
+                            temp.data[paraId] = value;
+                        }
+
+                        const {code, msg, data} = await postAsync('/cpn/node/modify', temp);
+                        await showNotice(msg);
+                        if (code === CODE.SUCCESS)
+                        {
+                            await hideModal($modal);
+                        }
+                    }
+                    catch (e)
+                    {
+                        console.log(e);
+                        await showNotice('设备信息修改失败')
+                            .catch(e =>
+                            {
+                                console.log(e);
+                            });
+                    }
+                });
+
+                await fadeInAsync($modal, 150);
             }
             else
             {
                 await showNotice(msg);
             }
-            const {minLeft, minTop, maxLeft, maxTop} = await getModalMaxPosition();
-
-            $modal.css({
-                display: 'none',
-                position: 'absolute',
-                left: left < minLeft ? minLeft : left > maxLeft ? maxLeft : left,
-                top: top < minTop ? minTop : top > maxTop ? maxTop : top
-            });
-
-            $main.append($modal);
-
-            $modal.find('.modalClose').click(async (e) =>
-            {
-                try
-                {
-                    e.preventDefault();
-                    await hideModal($modal);
-                }
-                catch (e)
-                {
-                    console.log(e);
-                }
-            });
-
-            $modal.find('.cancelBtn').click(async (e) =>
-            {
-                try
-                {
-                    e.preventDefault();
-                    await hideModal($modal);
-                }
-                catch (e)
-                {
-                    console.log(e);
-                }
-            });
-
-            /*提交数据格式
-             * {
-             *     id: 设备的id
-             *     data: {
-             *         '0291': balabala,    // 字段数据
-             *         '0292': true,    // 复选框数据，开是true，关是false
-             *     }
-             * }
-             * */
-            $modal.find('.confirmBtn').click(async (e) =>
-            {
-                try
-                {
-                    e.preventDefault();
-                    const $formArea = $modal.find('.formArea');
-                    const $switches = $formArea.find('div[data-paratype=switch]');
-                    const $controls = $formArea.find('input[data-paratype=control]');
-
-                    let temp = {
-                        id: numberMapping[nodeId],
-                        data: {}
-                    };
-
-                    for (const s of $switches)
-                    {
-                        const $checked = $(s).find('input[checked=true]');
-                        const paraId = $(s).attr('data-paraid');
-                        const value = $checked.attr('value') === 'true';
-                        temp.data[paraId] = value;
-                    }
-
-                    for (const c of $controls)
-                    {
-                        const paraId = $(c).attr('data-paraid');
-                        const value = $(c).val();
-                        temp.data[paraId] = value;
-                    }
-
-                    const {code, msg, data} = await postAsync('/cpn/nodes/modalSubmit', temp);
-                    await showNotice(msg);
-                    if (code === CODE.SUCCESS)
-                    {
-                        await hideModal($modal);
-                    }
-                }
-                catch (e)
-                {
-                    console.log(e);
-                    await showNotice('设备信息修改失败')
-                        .catch(e =>
-                        {
-                            console.log(e);
-                        });
-                }
-            });
-
-            await fadeInAsync($modal, 150);
         }
         catch (e)
         {
