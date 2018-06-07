@@ -56,6 +56,7 @@ $(() =>
             {
                 if (parameters.hasOwnProperty(paraId))
                 {
+                    paraId.trim();
                     const {type, name} = parameters[paraId];
                     paraId = parseInt(paraId, 16) >= parseInt('029A', 16) ? paraId.toString() : `0${paraId}`;
                     switch (type)//根据type，添加不同内容
@@ -98,6 +99,7 @@ $(() =>
                 {
                     if (data.hasOwnProperty(paraId))
                     {
+                        paraId = paraId.trim();
                         paraId = paraId.toUpperCase();
                         const $para = $modalBody.find(`*[data-paraid="${paraId}"]`);
                         if ($para.length !== 0)
@@ -194,7 +196,7 @@ $(() =>
                         }
 
                         const {code, msg, data} = await postAsync('/cpn/node/modify', temp);
-                        await showNotice(msg, code === CODE.SUCCESS);
+                        await showNotice(msg.trim(), code === CODE.SUCCESS);
                         if (code === CODE.SUCCESS)
                         {
                             await hideModal($modal);
@@ -215,7 +217,7 @@ $(() =>
             }
             else
             {
-                await showNotice(msg);
+                await showNotice(msg.trim());
             }
         }
         catch (e)
