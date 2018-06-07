@@ -3,14 +3,15 @@
  * Date 18-5-31
  * Time 下午1:16
  **/
-const md5 = require('md5');
 const fs = require('fs');
 const config = require('../config/config');
 let nodes = [];
+let nodesType = [];
+let typeNumber = [13,9,7,7,18,10,5,5,21,6,10,10];
 for (let i = 0;i<8;++i){
 	let temp = [];
 	for (let j = 0;j<6;++j){
-		temp.push(`8666683506aacd900bbd5a74ac4edf${i}${j}`)
+		temp.push(`8666683506aacd900bbd5a74ac4edf${i}${j}`);
 	}
 	nodes.push(temp);
 }
@@ -23,12 +24,27 @@ for (let i = 0;i<8;++i){
 fs.writeFileSync('../test/nodes.txt',nodesString);
 let nodesTypeString = '';
 for (let i = 0;i<8;++i){
+	let temp = [];
 	for (let j = 0;j<6;++j){
-		nodesTypeString = nodesTypeString + nodes[i][j] + ',1\n';
+		temp.push(parseInt((Math.random()*12).toString())+1);
+		nodesTypeString = nodesTypeString + nodes[i][j] + `,${temp[j]}\n`;
 	}
+	nodesType.push(temp);
 }
 fs.writeFileSync('../test/type.txt',nodesTypeString);
-
+let nodesTypeAtrribution = '';
+for (let i = 0;i<8;++i){
+	for (let j = 0;j<6;++j){
+		let temp = `${nodes[i][j]}:${nodesType[i][j].toString(16)}000000,`;
+		for (let z = 0;z < typeNumber[nodesType[i][j] - 1];++z){
+			let n = (145+z).toString(16);
+			temp += `${n}020000:FFFFFFFF,`;
+		}
+		nodesTypeAtrribution += temp;
+		nodesTypeAtrribution += '\n';
+	}
+}
+fs.writeFileSync('../test/jinlei.txt',nodesTypeAtrribution);
 class edge {
 	constructor(s,e,i){
 		this.start = s;
