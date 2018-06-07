@@ -60,14 +60,14 @@ async function getAllNodesInfo()
 }
 
 // nodeId为在页面上的id
-async function getNodeInfo(nodeId)
+async function getNodeInfo(pageId)
 {
     return new Promise((async (resolve, reject) =>
     {
         try
         {
-            const nodeOriginId = numberMapping[nodeId];
-            resolve(await getAsync('/cpn/nodes/getNodeInfo', {id: nodeOriginId}));
+            const originalId = getOriginalId(pageId);
+            resolve(await getAsync('/cpn/node/get', {id: originalId}));
         }
         catch (e)
         {
@@ -155,7 +155,6 @@ async function hideModal(selector)
     }));
 }
 
-
 // 获取四个角结点的位置，以确定模态框放置的边界
 async function getModalMaxPosition()
 {
@@ -184,4 +183,14 @@ async function getModalMaxPosition()
         }
     });
 
+}
+
+function getPageId(originalId)
+{
+    return originalIdToPageId[originalId.toString().trim()];
+}
+
+function getOriginalId(pageId)
+{
+    return pageIdToOriginalId[pageId.toString().trim()];
 }
