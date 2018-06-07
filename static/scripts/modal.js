@@ -22,12 +22,12 @@ $(() =>
         try
         {
             /*获得点击结点的ID和种类*/
-            const pageId = $(e.target).attr('data-nodeid');//得到结点页面ID
-            const nodeType = $(e.target).attr('data-devicetype');//得到结点设备种类
+            const pageId = $(e.target).attr('data-nodeId');//得到结点页面ID
+            const nodeType = $(e.target).attr('data-deviceType');//得到结点设备种类
 
             const {top, left} = $(e.target).position();// 获得被点击结点在页面上的位置
 
-            const $modal = $(`<div class="modal" data-fornodeid="${pageId}">
+            const $modal = $(`<div class="modal" data-forNodeId="${pageId}">
     <div class="modalHeaderArea">
         <div class="modalHeader">结点信息</div>
         <div class="modalClose">×</div>
@@ -38,7 +38,7 @@ $(() =>
     </div>
     <div class="modalFooter">
         <div class="btnArea">
-            <button class="btn confirmBtn" data-fornodeid="${pageId}">确定</button>
+            <button class="btn confirmBtn" data-forNodeId="${pageId}">确定</button>
             <button class="btn cancelBtn">取消</button>
         </div>
     </div>
@@ -56,29 +56,28 @@ $(() =>
             {
                 if (parameters.hasOwnProperty(paraId))
                 {
-                    paraId.trim();
                     const {type, name} = parameters[paraId];
-                    paraId = parseInt(paraId, 16) >= parseInt('029A', 16) ? paraId.toString() : `0${paraId}`;
+                    paraId = (paraId.toString())[0] === '0' ? paraId.toString() : `0${paraId}`;
                     switch (type)//根据type，添加不同内容
                     {
                         case DATA:
                         {
                             const $node = $(`<div class="area">
  <span class="label">${name}</span>
- <span data-paratype="data" data-paraid="${paraId}"></span>
+ <span data-paraType="data" data-paraId="${paraId}"></span>
  </div>`);
                             $infoArea.append($node);
                             break;
                         }
                         case CONTROL:
                         {
-                            const $node = $(`<label class="control area">${name}<input data-paratype="control" data-paraid="${paraId}" type="text"></label>`);
+                            const $node = $(`<label class="control area">${name}<input data-paraType="control" data-paraId="${paraId}" type="text"></label>`);
                             $formArea.append($node);
                             break;
                         }
                         case SWITCH:
                         {
-                            const $node = $(`<div class="radioArea" data-paratype="switch" data-paraid="${paraId}">
+                            const $node = $(`<div class="radioArea" data-paraType="switch" data-paraId="${paraId}">
  <span class="label">${name}</span>
  <label class="radio">
  <input type="radio" value="true" name="${paraId}Radio">开</label>
@@ -99,20 +98,19 @@ $(() =>
                 {
                     if (data.hasOwnProperty(paraId))
                     {
-                        paraId = paraId.trim();
-                        paraId = paraId.toUpperCase();
-                        const $para = $modalBody.find(`*[data-paraid="${paraId}"]`);
+                        paraId = paraId.trim().toUpperCase();
+                        const $para = $modalBody.find(`*[data-paraId="${paraId}"]`);
                         if ($para.length !== 0)
                         {
-                            if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paratype') === 'switch')
+                            if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paraType') === 'switch')
                             {
                                 $para.find(`input[value=${data[paraId]}]`).prop('checked', 'true');
                             }
-                            else if ($para.prop('tagName').toLowerCase() === 'input' && $para.attr('data-paratype') === 'control')
+                            else if ($para.prop('tagName').toLowerCase() === 'input' && $para.attr('data-paraType') === 'control')
                             {
                                 $para.val(data[paraId]);
                             }
-                            else if ($para.prop('tagName').toLowerCase() === 'span' && $para.attr('data-paratype') === 'data')
+                            else if ($para.prop('tagName').toLowerCase() === 'span' && $para.attr('data-paraType') === 'data')
                             {
                                 $para.text(data[paraId]);
                             }
@@ -172,8 +170,8 @@ $(() =>
                     {
                         e.preventDefault();
                         const $formArea = $modal.find('.formArea');
-                        const $switches = $formArea.find('div[data-paratype=switch]');
-                        const $controls = $formArea.find('input[data-paratype=control]');
+                        const $switches = $formArea.find('div[data-paraType=switch]');
+                        const $controls = $formArea.find('input[data-paraType=control]');
 
                         let temp = {
                             id: getOriginalId(pageId),
@@ -183,19 +181,17 @@ $(() =>
                         for (const s of $switches)
                         {
                             const $checked = $(s).find('input[checked=true]');
-                            const paraId = $(s).attr('data-paraid');
-                            const value = $checked.attr('value') === 'true';
-                            temp.data[paraId] = value;
+                            const paraId = $(s).attr('data-paraId');
+                            temp.data[paraId] = $checked.attr('value') === 'true';
                         }
 
                         for (const c of $controls)
                         {
-                            const paraId = $(c).attr('data-paraid');
-                            const value = $(c).val();
-                            temp.data[paraId] = value;
+                            const paraId = $(c).attr('data-paraId');
+                            temp.data[paraId] = $(c).val();
                         }
 
-                        const {code, msg, data} = await postAsync('/cpn/node/modify', temp);
+                        const {code, msg} = await postAsync('/cpn/node/modify', temp);
                         await showNotice(msg.trim(), code === CODE.SUCCESS);
                         if (code === CODE.SUCCESS)
                         {

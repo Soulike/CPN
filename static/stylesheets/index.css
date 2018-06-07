@@ -27,7 +27,7 @@ html
     border: #AAAAAA 1px solid;
 
     /*以下测试用*/
-    font-size: 0.66rem;
+    font-size: 0.5rem;
     line-height: 2rem;
     vertical-align: 40%;
 }
@@ -85,21 +85,21 @@ html
 {
     border-color: #AAA;
     outline-color: #AAA;
-    transition: 0.5s;
 }
 
 .connected.line
 {
     border-color: #000;
-    transition: 0.5s;
 }
 
 .connected.hor-line
 {
+    background: #F00;
     background: linear-gradient(to bottom, #900, #B00, #F00, #B00, #900);
 }
 
 .connected.vertical-line
 {
+    background: #F00;
     background: linear-gradient(to right, #900, #B00, #F00, #B00, #900);
 }

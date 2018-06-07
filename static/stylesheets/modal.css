@@ -2,7 +2,6 @@
 {
     position: absolute;
 
-
     border: #CCC solid 1px;
     border-radius: 0.5rem;
 
@@ -41,7 +40,8 @@
     font-size: 0.9rem;
     padding: 0.75rem 1rem;
     height: 10rem;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .modalFooter
@@ -97,16 +97,6 @@
 {
     margin: 0.75rem 0;
     width: 18rem;
-}
-
-.area:first-child, .radioArea:first-child
-{
-    margin-top: 0;
-}
-
-.area:last-child, .radioContent:last-child
-{
-    margin-bottom: 0;
 }
 
 .label

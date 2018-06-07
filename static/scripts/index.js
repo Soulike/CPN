@@ -39,7 +39,7 @@ $(async () =>
         }
         else
         {
-            await showNotice(getAll.msg.trim());
+            await showNotice(getAll.msg);
         }
 
         // 显示结点类型对应图片
@@ -51,9 +51,10 @@ $(async () =>
             {
                 if (data.hasOwnProperty(originalId))
                 {
-                    const nodeNum = originalIdToPageId[originalId];
+                    originalId = originalId.trim();
+                    const pageId = originalIdToPageId[originalId];
                     const typeId = data[originalId];
-                    const $icon = $(`.icon[data-nodeid=${nodeNum}]`);
+                    const $icon = $(`.icon[data-nodeid=${pageId}]`);
                     $icon.attr('data-deviceType', data[originalId]);//把结点设备的种类记录到DOM上
                     $icon.css('background-image', `url('./images/${TYPE[typeId]}.png')`);
                 }
@@ -61,7 +62,7 @@ $(async () =>
         }
         else
         {
-            await showNotice(getType.msg.trim());
+            await showNotice(getType.msg);
         }
     }
     catch (e)
@@ -81,7 +82,7 @@ $(async () =>
             const $icons = $('.icon');
             for (const icon of $icons)
             {
-                const deviceType = $(icon).attr('data-deviceType').trim();
+                const deviceType = $(icon).attr('data-deviceType');
                 $(icon).text(DEVICE.NAME_FOR_TEST[deviceType]);
             }
         }
