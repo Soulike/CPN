@@ -24,7 +24,7 @@ module.exports = (router)=>{
 		let data = {};
 		for(let i of nodesType){
 			i = i.split(',');
-			data[i[0]] = i[1];
+			data[i[0].trim()] = i[1].trim();
 		}
 		lib.msgTranslate(ctx,0,'获取类型成功！',data);
 		await next();

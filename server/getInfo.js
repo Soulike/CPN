@@ -21,10 +21,10 @@ module.exports = (id) => {
 			for (let j of divideI) {
 				let divideJ = j.split(':');
 				if (divideJ[0].length === 8) {
-					temp[r(divideJ[0])] = divideJ[1];
+					temp[r(divideJ[0]).trim()] = divideJ[1].trim();
 				}
 				else {
-					temp[divideJ[0]] = divideJ[1];
+					temp[divideJ[0].trim()] = divideJ[1];
 				}
 			}
 			data.push(temp);
