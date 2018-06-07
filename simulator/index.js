@@ -37,7 +37,7 @@ for (let i = 0; i < 8; ++i) {
 	for (let j = 0; j < 6; ++j) {
 		let temp = `${nodes[i][j]}:${nodesType[i][j].toString(16)}000000,`;
 		for (let z = 0; z < typeNumber[nodesType[i][j] - 1]; ++z) {
-			let n = (145 + z).toString(16);
+			let n = (145 + z).toString(16).toUpperCase();
 			temp += `${n}020000:FFFFFFFF,`;
 		}
 		nodesTypeAtrribution += temp;
