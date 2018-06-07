@@ -55,6 +55,8 @@ $(async () =>
                     const $icon = $(`.icon[data-nodeid=${nodeNum}]`);
                     $icon.attr('data-deviceType', data[nodesId]);//把结点设备的种类记录到DOM上
                     $icon.css('background-image', `url('./images/${TYPE[data[nodesId]]}.png')`);
+                    console.log(nodesId);
+                    console.log(data[nodesId]);
                 }
             }
         }
