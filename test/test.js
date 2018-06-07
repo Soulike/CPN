@@ -13,7 +13,6 @@ describe('#test router',()=>{
 			.end((err,res)=>{
 				if(err) console.log(err);
 				else console.log(res.body);
-				for(let i of res.body.data.nodes) console.log(i.length);
 			})
 	});
 
@@ -24,5 +23,30 @@ describe('#test router',()=>{
 				if(err) console.log(err);
 				else console.log(res.body);
 			})
-	})
+	});
+
+	it('#test get',()=>{
+		request(server)
+			.get('/cpn/node/get?id=8666683506aacd900bbd5a74ac4edf00')
+			.end((err,res)=>{
+				if(err) console.log(err);
+				else console.log(res.body);
+			})
+	});
+
+	it('#test modify', function () {
+		request(server)
+			.post('/cpn/node/modify')
+			.send({
+				id: '8666683506aacd900bbd5a74ac4edf00',
+				data: {
+					'0291': 'TTTTTTTT',
+					'0292': 'TTTTTTTT'
+				}
+			})
+			.end((err,res)=>{
+				if(err) console.log(err);
+				else console.log(res.body);
+			})
+	});
 });

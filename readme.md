@@ -28,7 +28,7 @@ response.data:{
 
 方法：GET
 
-路由：
+路由：/cpn/node/get
 
 前端发送
 
@@ -50,7 +50,7 @@ response.data = {
 
 方法：POST
 
-路由：
+路由：/cpn/node/modify
 
 前端发送
 

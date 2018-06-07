@@ -10,6 +10,7 @@ let config = {
 	nodesNumber:10,
 	nodesFilePath:path.join(__dirname,'../test/nodes.txt'),
 	nodesTypePath:path.join(__dirname,'../test/type.txt'),
-	nodesTopoPath:path.join(__dirname,'../test/topo.txt')
+	nodesTopoPath:path.join(__dirname,'../test/topo.txt'),
+	infoFilePath:path.join(__dirname,'../test/jinlei.txt')
 };
 module.exports = config;
