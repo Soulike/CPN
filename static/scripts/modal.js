@@ -22,12 +22,12 @@ $(() =>
         try
         {
             /*获得点击结点的ID和种类*/
-            const nodeId = $(e.target).attr('data-nodeid');//得到结点页面ID
+            const pageId = $(e.target).attr('data-nodeid');//得到结点页面ID
             const nodeType = $(e.target).attr('data-devicetype');//得到结点设备种类
 
             const {top, left} = $(e.target).position();// 获得被点击结点在页面上的位置
 
-            const $modal = $(`<div class="modal" data-fornodeid="${nodeId}">
+            const $modal = $(`<div class="modal" data-fornodeid="${pageId}">
     <div class="modalHeaderArea">
         <div class="modalHeader">结点信息</div>
         <div class="modalClose">×</div>
@@ -38,13 +38,14 @@ $(() =>
     </div>
     <div class="modalFooter">
         <div class="btnArea">
-            <button class="btn confirmBtn" data-fornodeid="${nodeId}">确定</button>
+            <button class="btn confirmBtn" data-fornodeid="${pageId}">确定</button>
             <button class="btn cancelBtn">取消</button>
         </div>
     </div>
 </div>`);
 
             /*在modal body当中存放适当的内容*/
+            const $modalBody = $modal.find('.modalBody');
             const $infoArea = $modal.find('.infoArea');
             const $formArea = $modal.find('.formArea');
             const {PARAMETERS} = DEVICE;
@@ -89,14 +90,16 @@ $(() =>
                 }
             }
 
-            const {code, msg, data} = await getNodeInfo(nodeId);//获取被点击的结点的信息
+            const {code, msg, data} = await getNodeInfo(pageId);//获取被点击的结点的信息
             if (code === CODE.SUCCESS)
             {
-                for (const paraId in data)
+                for (let paraId in data)
                 {
                     if (data.hasOwnProperty(paraId))
                     {
-                        const $para = $infoArea.find(`*[data-paraid="${paraId}"]`);
+                        paraId = paraId.toUpperCase();
+                        const $para = $modalBody.find(`*[data-paraid="${paraId}"]`);
+                        console.log($para);
                         if ($para.length !== 0)
                         {
                             if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paratype') === 'switch')
@@ -171,7 +174,7 @@ $(() =>
                         const $controls = $formArea.find('input[data-paratype=control]');
 
                         let temp = {
-                            id: originalIdToPageId[nodeId],
+                            id: getOriginalId(pageId),
                             data: {}
                         };
 
@@ -191,7 +194,7 @@ $(() =>
                         }
 
                         const {code, msg, data} = await postAsync('/cpn/node/modify', temp);
-                        await showNotice(msg);
+                        await showNotice(msg, code === CODE.SUCCESS);
                         if (code === CODE.SUCCESS)
                         {
                             await hideModal($modal);
