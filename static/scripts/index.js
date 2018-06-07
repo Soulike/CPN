@@ -47,17 +47,18 @@ $(async () =>
         {
             const {data} = getType;
             const {TYPE} = DEVICE;
-            for (let nodesId in data)
+            for (let originalId in data)
             {
-                if (data.hasOwnProperty(nodesId))
+                if (data.hasOwnProperty(originalId))
                 {
-                    const nodeNum = originalIdToPageId[nodesId];
+                    const nodeNum = originalIdToPageId[originalId];
+                    const typeId = data[originalId];
                     const $icon = $(`.icon[data-nodeid=${nodeNum}]`);
-                    $icon.attr('data-deviceType', data[nodesId]);//把结点设备的种类记录到DOM上
-                    $icon.css('background-image', `url('./images/${TYPE[data[nodesId]]}.png')`);
-                    console.log(nodesId);
-                    console.log(data[nodesId]);
-                    console.log(TYPE[data[nodesId]]);
+                    $icon.attr('data-deviceType', data[originalId]);//把结点设备的种类记录到DOM上
+                    $icon.css('background-image', `url('./images/${TYPE[typeId]}.png')`);
+                    console.log(originalId);
+                    console.log(typeId);
+                    console.log(TYPE[typeId]);
                 }
             }
         }
