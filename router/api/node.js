@@ -27,7 +27,7 @@ module.exports = (router)=>{
 		let data = ctx.request.body;
 		let operatorString = '';
 		for (let i in data.data){
-			operatorString += `$${parseInt(i.toString())-289} = "${r(i)}0000:${data.data[i]}";`
+			operatorString += `$${parseInt(i.toString(),16)-parseInt('289',16)} = "${r(i)}0000:${data.data[i]}";`
 		}
 		await modifyInfo(data.id.toString(),operatorString,config.infoFilePath);
 		lib.msgTranslate(ctx,0,'修改成功！',{});
