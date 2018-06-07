@@ -104,15 +104,15 @@ $(() =>
                         const $para = $modalBody.find(`*[data-paraid="${paraId}"]`);
                         if ($para.length !== 0)
                         {
-                            if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paratype') === 'switch')
+                            if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paraType') === 'switch')
                             {
                                 $para.find(`input[value=${data[paraId]}]`).prop('checked', 'true');
                             }
-                            else if ($para.prop('tagName').toLowerCase() === 'input' && $para.attr('data-paratype') === 'control')
+                            else if ($para.prop('tagName').toLowerCase() === 'input' && $para.attr('data-paraType') === 'control')
                             {
                                 $para.val(data[paraId]);
                             }
-                            else if ($para.prop('tagName').toLowerCase() === 'span' && $para.attr('data-paratype') === 'data')
+                            else if ($para.prop('tagName').toLowerCase() === 'span' && $para.attr('data-paraType') === 'data')
                             {
                                 $para.text(data[paraId]);
                             }
