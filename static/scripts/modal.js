@@ -58,8 +58,7 @@ $(() =>
                 {
                     paraId.trim();
                     const {type, name} = parameters[paraId];
-                    /*TODO: 启用babel后开启
-                    paraId = parseInt(paraId, 16) >= parseInt('029A', 16) ? paraId.toString() : `0${paraId}`;*/
+                    paraId = parseInt(paraId, 16) >= parseInt('029A', 16) ? paraId.toString() : `0${paraId}`;
                     switch (type)//根据type，添加不同内容
                     {
                         case DATA:
