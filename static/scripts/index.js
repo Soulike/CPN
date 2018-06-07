@@ -51,7 +51,6 @@ $(async () =>
             {
                 if (data.hasOwnProperty(nodesId))
                 {
-                    nodesId = nodesId.trim();
                     const nodeNum = originalIdToPageId[nodesId];
                     const $icon = $(`.icon[data-nodeid=${nodeNum}]`);
                     $icon.attr('data-deviceType', data[nodesId]);//把结点设备的种类记录到DOM上

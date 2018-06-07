@@ -103,8 +103,6 @@ $(() =>
                         paraId = paraId.trim();
                         paraId = paraId.toUpperCase();
                         const $para = $modalBody.find(`*[data-paraid="${paraId}"]`);
-                        console.log(paraId);
-                        console.log($para);
                         if ($para.length !== 0)
                         {
                             if ($para.prop('tagName').toLowerCase() === 'div' && $para.attr('data-paratype') === 'switch')
