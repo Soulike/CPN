@@ -10,6 +10,7 @@ const numCPUs = require("os").cpus().length;
 
 const config = require('../config/config');
 const app = require('../index');
+const logger = require('../lib/logger');
 
 const pkg = require('../package');
 const port = pkg.port;
@@ -24,18 +25,19 @@ fs.watchFile(config.nodesTopoPath, {
 	interval:1000
 }, function(cur, pre) {
 	if (Date.parse(pre.ctime) === 0) {
-		console.log('文件被创建');
+		logger.error((new Date()).toLocaleTimeString()+'文件被创建');
+		cpnEvent.emit('fileChange')
 	} else if (Date.parse(cur.ctime) === 0) {
 		console.log('文件被删除');
 	} else if (Date.parse(cur.mtime) !== Date.parse(pre.mtime)) {
-		console.log((new Date()).toLocaleTimeString()+'文件被修改');
+		logger.error((new Date()).toLocaleTimeString()+'文件被修改');
 		cpnEvent.emit('fileChange')
 	}
 });
 
 setInterval(function () {
+	logger.error('通过定时器发送socket');
 	cpnEvent.emit('fileChange');
-	console.log('通过定时器发送socket');
 },1000);
 
 if (isDebug) {

@@ -29,7 +29,7 @@ module.exports = (router)=>{
 		let start = ['29a','297','296','296','29b','297','294','294','29b','295','297','297'];
 		let nodesType = getInfo.getType();
 		for (let i in data.data){
-			operatorString += `$${parseInt(i.toString(),16)-parseInt(start[nodesType[data.id.toString()] - 1] + 1,16)} = "${r(i)}0000:${data.data[i]}";`
+			operatorString += `$${parseInt(i.toString(),16)-parseInt(start[nodesType[data.id.toString()] - 1],16) + 2} = "${r(i)}0000:${data.data[i]}";`
 		}
 		await modifyInfo(data.id.toString(),operatorString,config.nodesInfoFeedbackPath);
 		lib.msgTranslate(ctx,0,'修改成功！',{});
