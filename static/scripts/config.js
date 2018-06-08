@@ -8,7 +8,7 @@ const MSG = {
 };
 
 const SERVER = {
-    DOMAIN: '127.0.0.1',
+    DOMAIN: '172.6.6.89',
     PORT: 3000
 };
 
