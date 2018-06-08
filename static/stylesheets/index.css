@@ -6,7 +6,7 @@ html
 
 #main
 {
-    min-width: 66.7rem;
+    min-width: 90rem;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -29,7 +29,7 @@ html
 
 .no-line-row > .icon
 {
-    margin-right: 9.15rem;
+    margin-right: 13.25rem;
 }
 
 .no-line-row > .icon:last-child
@@ -40,7 +40,8 @@ html
 .hor-line
 {
     height: 0.5rem;
-    width: 8.9rem;
+    /*width: 8.9rem;*/
+    width: 13rem;
     border-left: 0;
     border-right: 0;
     border-top: 1px solid;
@@ -53,7 +54,8 @@ html
     border-left: 1px solid;
     border-right: 1px solid;
     width: 0.5rem;
-    margin-right: 10.65rem;
+    /*margin-right: 10.65rem;*/
+    margin-right: 14.78rem;
 }
 
 .vertical-short-line
