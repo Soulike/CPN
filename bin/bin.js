@@ -8,6 +8,7 @@ const cluster = require('cluster');
 
 const numCPUs = require("os").cpus().length;
 
+const config = require('../config/config');
 const app = require('../index');
 
 const pkg = require('../package');
@@ -18,7 +19,7 @@ const isDebug = process.env.DEBUG === "debug";
 const fs = require('fs');
 const cpnEvent = require('../lib/cpnEvents');
 //监控文件是否修改
-fs.watchFile('../test/topo.txt', {
+fs.watchFile(config.nodesTopoPath, {
 	persistent:true,
 	interval:1000
 }, function(cur, pre) {
