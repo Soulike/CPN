@@ -11,7 +11,7 @@ module.exports = (router)=>{
 	let prefix = url => `/node${url}`;
 	router.get(prefix('/get'),async(ctx,next)=>{
 		let id = ctx.request.query.id;
-		let data = getInfo(id);
+		let data = getInfo.getById(id);
 		if(data){
 			lib.msgTranslate(ctx,0,'获取信息成功！',data);
 		}
@@ -29,7 +29,7 @@ module.exports = (router)=>{
 		for (let i in data.data){
 			operatorString += `$${parseInt(i.toString(),16)-parseInt('289',16)} = "${r(i)}0000:${data.data[i]}";`
 		}
-		await modifyInfo(data.id.toString(),operatorString,config.infoFilePath);
+		await modifyInfo(data.id.toString(),operatorString,config.nodesInfoFeedbackPath);
 		lib.msgTranslate(ctx,0,'修改成功！',{});
 		await next();
 	});

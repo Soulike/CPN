@@ -27,7 +27,7 @@ for (let i = 0; i < 8; ++i) {
 	let temp = [];
 	for (let j = 0; j < 6; ++j) {
 		temp.push(parseInt((Math.random() * 12).toString()) + 1);
-		nodesTypeString = nodesTypeString + nodes[i][j] + `,${temp[j]}\n`;
+		nodesTypeString = nodesTypeString + nodes[i][j] + `:${temp[j]}\n`;
 	}
 	nodesType.push(temp);
 }
@@ -35,7 +35,8 @@ fs.writeFileSync('../test/type.txt', nodesTypeString);
 let nodesTypeAtrribution = '';
 for (let i = 0; i < 8; ++i) {
 	for (let j = 0; j < 6; ++j) {
-		let temp = `${nodes[i][j]}:${nodesType[i][j].toString(16)}000000,`;
+		let temp = `${nodes[i][j]}:0${nodesType[i][j].toString(16)}000000,`;
+
 		for (let z = 0; z < typeNumber[nodesType[i][j] - 1]; ++z) {
 			let n = (145 + z).toString(16).toUpperCase();
 			temp += `${n}020000:FFFFFFFF,`;

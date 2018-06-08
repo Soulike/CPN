@@ -6,6 +6,7 @@
 const fs = require('fs');
 const config = require('../../config/config');
 const lib = require('../../lib/lib');
+const getInfo = require('../../server/getInfo');
 module.exports = (router)=>{
 	let prefix = url => `/nodes${url}`;
 
@@ -18,14 +19,7 @@ module.exports = (router)=>{
 	});
 
 	router.get(prefix('/getType'),async(ctx,next)=>{
-		let nodesTypeFile = fs.readFileSync(config.nodesTypePath,'utf-8');
-		let nodesType = nodesTypeFile.split('\n');
-		if(nodesType.length > config.nodesNumber) nodesType.pop();
-		let data = {};
-		for(let i of nodesType){
-			i = i.split(',');
-			data[i[0].trim()] = i[1].trim();
-		}
+		let data = getInfo.getType();
 		lib.msgTranslate(ctx,0,'获取类型成功！',data);
 		await next();
 	});
