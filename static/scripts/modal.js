@@ -94,8 +94,8 @@ $(() =>
                     }
                 }
             }
-
             const {code, msg, data} = await getNodeInfo(pageId);//获取被点击的结点的信息
+
             if (code === CODE.SUCCESS)
             {
                 for (let paraId in data)
@@ -217,7 +217,7 @@ $(() =>
             }
             else
             {
-                await showNotice(msg.trim());
+                await showNotice(msg);
             }
         }
         catch (e)
