@@ -19,22 +19,23 @@ const isDebug = process.env.DEBUG === "debug";
 const fs = require('fs');
 const cpnEvent = require('../lib/cpnEvents');
 //监控文件是否修改
-// fs.watchFile(config.nodesTopoPath, {
-// 	persistent:true,
-// 	interval:1000
-// }, function(cur, pre) {
-// 	if (Date.parse(pre.ctime) === 0) {
-// 		console.log('文件被创建');
-// 	} else if (Date.parse(cur.ctime) === 0) {
-// 		console.log('文件被删除');
-// 	} else if (Date.parse(cur.mtime) !== Date.parse(pre.mtime)) {
-// 		console.log((new Date()).toLocaleTimeString()+'文件被修改');
-// 		cpnEvent.emit('fileChange')
-// 	}
-// });
+fs.watchFile(config.nodesTopoPath, {
+	persistent:true,
+	interval:1000
+}, function(cur, pre) {
+	if (Date.parse(pre.ctime) === 0) {
+		console.log('文件被创建');
+	} else if (Date.parse(cur.ctime) === 0) {
+		console.log('文件被删除');
+	} else if (Date.parse(cur.mtime) !== Date.parse(pre.mtime)) {
+		console.log((new Date()).toLocaleTimeString()+'文件被修改');
+		cpnEvent.emit('fileChange')
+	}
+});
 
 setInterval(function () {
-	cpnEvent.emit('fileChange')
+	cpnEvent.emit('fileChange');
+	console.log('通过定时器发送socket');
 },1000);
 
 if (isDebug) {
