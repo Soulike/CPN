@@ -29,7 +29,7 @@ $(() =>
 
             const $modal = $(`<div class="modal" data-forNodeId="${pageId}">
     <div class="modalHeaderArea">
-        <div class="modalHeader">结点信息</div>
+        <div class="modalHeader"></div>
         <div class="modalClose">×</div>
     </div>
     <div class="modalBody">
@@ -44,6 +44,7 @@ $(() =>
     </div>
 </div>`);
 
+            const $modalHeader = $modal.find('.modalHeader');//将头设置为ID
             /*在modal body当中存放适当的内容*/
             const $modalBody = $modal.find('.modalBody');
             const $infoArea = $modal.find('.infoArea');
@@ -51,6 +52,9 @@ $(() =>
             const {PARAMETERS} = DEVICE;
             const {DATA, CONTROL, SWITCH} = PARAMETERS_TYPE;
             const parameters = PARAMETERS[nodeType];//取得所有参数列表
+
+            const originalId = getOriginalId(pageId);
+            $modalHeader.text(originalId);
 
             for (let paraId in parameters)//paraId 是不同参数的id
             {

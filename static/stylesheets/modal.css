@@ -24,6 +24,7 @@
 {
     display: inline-block;
     vertical-align: middle;
+    font-size: 0.8rem;
 }
 
 .modalClose
