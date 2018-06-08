@@ -84,6 +84,11 @@ $(async () =>
             {
                 const deviceType = $(icon).attr('data-deviceType');
                 $(icon).text(DEVICE.NAME_FOR_TEST[deviceType]);
+                $(icon).css({
+                    fontSize: '0.5rem',
+                    lineHeight: '2rem',
+                    verticalAlign: '40%'
+                });
             }
         }
     }
