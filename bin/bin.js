@@ -22,22 +22,37 @@ const cpnEvent = require('../lib/cpnEvents');
 //监控文件是否修改
 fs.watchFile(config.nodesTopoPath, {
 	persistent:true,
-	interval:1000
+	interval:200
 }, function(cur, pre) {
 	if (Date.parse(pre.ctime) === 0) {
-		logger.error((new Date()).toLocaleTimeString()+'文件被创建');
+		logger.error((new Date()).toLocaleTimeString()+'topo文件被创建');
 		cpnEvent.emit('fileChange')
 	} else if (Date.parse(cur.ctime) === 0) {
 		console.log('文件被删除');
 	} else if (Date.parse(cur.mtime) !== Date.parse(pre.mtime)) {
-		logger.error((new Date()).toLocaleTimeString()+'文件被修改');
+		logger.error((new Date()).toLocaleTimeString()+'topo文件被修改');
 		cpnEvent.emit('fileChange')
 	}
 });
 
-setInterval(function () {
-	cpnEvent.emit('fileChange');
-},1000);
+fs.watchFile(config.infoFilePath, {
+	persistent:true,
+	interval:200
+}, function(cur, pre) {
+	if (Date.parse(pre.ctime) === 0) {
+		logger.error((new Date()).toLocaleTimeString()+'文件被创建');
+		cpnEvent.emit('typeChange')
+	} else if (Date.parse(cur.ctime) === 0) {
+		console.log('type文件被删除');
+	} else if (Date.parse(cur.mtime) !== Date.parse(pre.mtime)) {
+		logger.error((new Date()).toLocaleTimeString()+'type文件被修改');
+		cpnEvent.emit('typeChange')
+	}
+});
+
+// setInterval(function () {
+// 	cpnEvent.emit('fileChange');
+// },1000);
 
 if (isDebug) {
 	let server = http.createServer(app.callback());

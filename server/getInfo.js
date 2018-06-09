@@ -6,6 +6,7 @@
 const fs = require('fs');
 const config = require('../config/config');
 const logger = require('../lib/logger');
+const nodeInfoConfig = require('../config/nodeInfo.config');
 
 let r = (string) => {
 	return string[2] + string[3] + string[0] + string[1];
@@ -13,7 +14,7 @@ let r = (string) => {
 
 module.exports = {
 	getById:(id) => {
-		let typeNumber = [13, 9, 7, 7, 18, 10, 5, 5, 21, 6, 10, 10];
+		let typeNumber = nodeInfoConfig.typeNumber;
 		let data = [];
 		let info = fs.readFileSync(config.infoFilePath, 'utf-8');
 		info = info.split('\n');
@@ -34,7 +35,7 @@ module.exports = {
 						}
 					}
 				}
-				if(parseInt(temp.type[1],16)>0 && parseInt(temp.type[1],16) < 13){
+				if(parseInt(temp.type[1],16)>=nodeInfoConfig.typeMin && parseInt(temp.type[1],16) <= nodeInfoConfig.typeMax){
 					if(divideI.length <= typeNumber[parseInt(temp.type[1],16) - 1]){
 						for (let z = 0; z < typeNumber[parseInt(temp.type[1],16) - 1]; ++z) {
 							let n = (145 + z).toString(16).toUpperCase();
@@ -54,7 +55,7 @@ module.exports = {
 		return false;
 	},
 	getType:()=>{
-		let typeNumber = [13, 9, 7, 7, 18, 10, 5, 5, 21, 6, 10, 10];
+		let typeNumber = nodeInfoConfig.typeNumber;
 		let data = [];
 		let info = fs.readFileSync(config.infoFilePath, 'utf-8');
 		info = info.split('\n');
@@ -75,10 +76,12 @@ module.exports = {
 						}
 					}
 				}
-				if(divideI.length <= typeNumber[parseInt(temp.type[1],16) - 1]){
-					for (let z = 0; z < typeNumber[parseInt(temp.type[1],16) - 1]; ++z) {
-						let n = (145 + z).toString(16).toUpperCase();
-						temp[`02${n}`] = 'FFFFFFFF';
+				if(parseInt(temp.type[1],16)>=nodeInfoConfig.typeMin && parseInt(temp.type[1],16) <= nodeInfoConfig.typeMax){
+					if(divideI.length <= typeNumber[parseInt(temp.type[1],16) - 1]){
+						for (let z = 0; z < typeNumber[parseInt(temp.type[1],16) - 1]; ++z) {
+							let n = (145 + z).toString(16).toUpperCase();
+							temp[`02${n}`] = 'FFFFFFFF';
+						}
 					}
 				}
 				data.push(temp);

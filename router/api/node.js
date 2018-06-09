@@ -7,6 +7,7 @@ const getInfo = require('../../server/getInfo');
 const lib = require('../../lib/lib');
 const modifyInfo = require('../../server/modifyInfo');
 const config = require('../../config/config');
+const nodeInfoConfig = require('../../config/nodeInfo.config');
 module.exports = (router)=>{
 	let prefix = url => `/node${url}`;
 	router.get(prefix('/get'),async(ctx,next)=>{
@@ -26,9 +27,9 @@ module.exports = (router)=>{
 		};
 		let data = ctx.request.body;
 		let operatorString = '';
-		let start = ['29a','297','296','296','29b','297','294','294','29b','295','297','297'];
+		let start = nodeInfoConfig.start;
 		let nodesType = getInfo.getType();
-		if(nodesType[data.id.toString()]>0&&nodesType[data.id.toString()]<13){
+		if(nodesType[data.id.toString()]>=nodeInfoConfig.typeMin&&nodesType[data.id.toString()]<=nodeInfoConfig.typeMax){
 			for (let i in data.data){
 				operatorString += `$${parseInt(i.toString(),16)-parseInt(start[nodesType[data.id.toString()] - 1],16) + 2} = "${r(i)}0000:${data.data[i]}";`
 			}
