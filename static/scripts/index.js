@@ -47,7 +47,7 @@ $(async () =>
         {
             // 全部预先写入类型为0
             const $icons = $('.icon');
-            for(const icon of $icons)
+            for (const icon of $icons)
             {
                 $(icon).attr('data-deviceType', '0');//把结点设备的种类记录到DOM上
                 //$icon.css('background-image', `url('./images/${TYPE[0]}.png')`);
@@ -85,26 +85,26 @@ $(async () =>
             });
     }
     /*finally
-    {
-        /!*测试用显示设备类型 TODO: 生产环境去除*!/
-        if (DEBUG)
-        {
-            const $icons = $('.icon');
-            for (const icon of $icons)
-            {
-                const deviceType = $(icon).attr('data-deviceType');
-                if (deviceType)
-                {
-                    $(icon).text(DEVICE.NAME_FOR_TEST[deviceType]);
-                    $(icon).css({
-                        fontSize: '0.5rem',
-                        lineHeight: '2rem',
-                        verticalAlign: '40%'
-                    });
-                }
-            }
-        }
-    }*/
+     {
+     /!*测试用显示设备类型 TODO: 生产环境去除*!/
+     if (DEBUG)
+     {
+     const $icons = $('.icon');
+     for (const icon of $icons)
+     {
+     const deviceType = $(icon).attr('data-deviceType');
+     if (deviceType)
+     {
+     $(icon).text(DEVICE.NAME_FOR_TEST[deviceType]);
+     $(icon).css({
+     fontSize: '0.5rem',
+     lineHeight: '2rem',
+     verticalAlign: '40%'
+     });
+     }
+     }
+     }
+     }*/
 });
 
 /*Socket 部分*/
@@ -149,29 +149,32 @@ $(() =>
             processedLines[`${startSeq}-${endSeq}`] = true;
         }
 
-        /*        // 清除所有无效数据（单向联通以及重复）
-         for (const key in processedLines)
-         {
-         if (processedLines.hasOwnProperty(key))
-         {
-         const nodeNums = key.split('-');
-         // 如果反过来找不到（单向联通），则删除本键
-         if (Object.is(processedLines[`${nodeNums[1]}-${nodeNums[0]}`], undefined))
-         {
-         delete processedLines[key];
-         }
-         // 如果是双向联通的，且是重复数据，则删除本键
-         else if (parseInt(nodeNums[0]) > parseInt(nodeNums[1]))
-         {
-         delete processedLines[key];
-         }
-         }
+        const processedLinesCopy = Object.assign({}, processedLines);//把原对象复制一份
 
-         }*/
+        // 清除所有无效数据（单向联通以及重复）
+        for (const key in processedLinesCopy)
+        {
+            if (processedLinesCopy.hasOwnProperty(key))
+            {
+                const nodeNums = key.split('-');
+                // 如果反过来找不到（单向联通），则删除本键
+                if (Object.is(processedLinesCopy[`${nodeNums[1]}-${nodeNums[0]}`], undefined))
+                {
+                    delete processedLines[key];
+                }
+                // 如果是双向联通的，且是重复数据，则删除本键
+                else if (parseInt(nodeNums[0]) > parseInt(nodeNums[1]))
+                {
+                    delete processedLines[key];
+                }
+            }
+        }
 
         //TODO: 生产环境去除
         if (DEBUG)
         {
+            console.log(`新的连接状态 (原始数据)`);
+            console.log(processedLinesCopy);
             console.log(`新的连接状态`);
             console.log(processedLines);
         }
@@ -200,7 +203,7 @@ $(() =>
     {
         // 全部预先写入类型为0
         const $icons = $('.icon');
-        for(const icon of $icons)
+        for (const icon of $icons)
         {
             $(icon).attr('data-deviceType', '0');//把结点设备的种类记录到DOM上
             //$icon.css('background-image', `url('./images/${TYPE[0]}.png')`);
