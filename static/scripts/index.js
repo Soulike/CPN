@@ -110,7 +110,7 @@ $(async () =>
 /*Socket 部分*/
 $(() =>
 {
-    const socket = io(`http://${SERVER.DOMAIN}:${SERVER.PORT}`);
+    const socket = io();
 
     socket.on('connect', () =>
     {

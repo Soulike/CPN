@@ -7,11 +7,6 @@ const MSG = {
     ERROR: '网络错误'
 };
 
-const SERVER = {
-    DOMAIN: '172.6.1.89',
-    PORT: 3000
-};
-
 /*设备参数类型映射*/
 const PARAMETERS_TYPE = {
     DATA: 1,
