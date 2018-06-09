@@ -19,7 +19,7 @@ module.exports = ()=>{
 		}
 		for (let j of node){
 			if(j!==node[0]&&j!==config.leftFlag){
-				link.push({startNode:node[0].trim(),endNode:j});
+				link.push({startNode:node[0].trim(),endNode:j.trim()});
 			}
 		}
 	}
