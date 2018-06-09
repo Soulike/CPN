@@ -36,7 +36,6 @@ fs.watchFile(config.nodesTopoPath, {
 });
 
 setInterval(function () {
-	logger.error('通过定时器发送socket');
 	cpnEvent.emit('fileChange');
 },1000);
 
