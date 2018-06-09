@@ -5,7 +5,6 @@
  **/
 const cpnEvent = require('../lib/cpnEvents');
 const getNodeStatus = require('../server/getNodeStatus');
-const logger = require('../lib/logger');
 module.exports = (io)=>{
 	io.on('connect',function (socket) {
 		let data = getNodeStatus();
@@ -16,7 +15,6 @@ module.exports = (io)=>{
 			let data = getNodeStatus();
 			if(data){
 				console.log((new Date()).toLocaleTimeString()+'发送socket');
-				logger.error(data);
 				socket.emit('nodeStatus',data);
 			}
 		});
