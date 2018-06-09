@@ -139,7 +139,7 @@ $(() =>
             processedLines[`${startSeq}-${endSeq}`] = true;
         }
 
-        // 清除所有无效数据（单向联通以及重复）
+/*        // 清除所有无效数据（单向联通以及重复）
         for (const key in processedLines)
         {
             if (processedLines.hasOwnProperty(key))
@@ -157,7 +157,7 @@ $(() =>
                 }
             }
 
-        }
+        }*/
 
         //TODO: 生产环境去除
         if (DEBUG)
