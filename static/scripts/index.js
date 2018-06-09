@@ -114,6 +114,13 @@ $(() =>
 
     socket.on('nodeStatus', (data) =>
     {
+        //TODO: 生产环境去除
+        if (DEBUG)
+        {
+            console.log(`新的连接状态 (原始数据)`);
+            console.log(data);
+        }
+
         let startSeq, endSeq;   // 结点在页面上的编号
         let processedLines = {};
         /*
