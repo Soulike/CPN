@@ -30,13 +30,16 @@ module.exports = {
 						}
 						else {
 							temp.id = divideJ[0];
+							temp.type = divideJ[1];
 						}
 					}
 				}
-				if(divideI.length <= typeNumber[parseInt(temp.type[1],16) - 1]){
-					for (let z = 0; z < typeNumber[parseInt(temp.type[1],16) - 1]; ++z) {
-						let n = (145 + z).toString(16).toUpperCase();
-						temp[`02${n}`] = 'FFFFFFFF';
+				if(parseInt(temp.type[1],16)>0 && parseInt(temp.type[1],16) < 13){
+					if(divideI.length <= typeNumber[parseInt(temp.type[1],16) - 1]){
+						for (let z = 0; z < typeNumber[parseInt(temp.type[1],16) - 1]; ++z) {
+							let n = (145 + z).toString(16).toUpperCase();
+							temp[`02${n}`] = 'FFFFFFFF';
+						}
 					}
 				}
 				data.push(temp);
