@@ -5,6 +5,7 @@
  **/
 const fs = require('fs');
 const config = require('../config/config');
+const logger = require('../lib/logger');
 
 let r = (string) => {
 	return string[2] + string[3] + string[0] + string[1];
@@ -29,7 +30,6 @@ module.exports = {
 						}
 						else {
 							temp.id = divideJ[0];
-							temp.type = divideJ[1];
 						}
 					}
 				}
@@ -86,7 +86,9 @@ module.exports = {
 			if(parseInt(i.type[1],16)>0&&parseInt(i.type[1],16)<13){
 				temp[i.id] = parseInt(i.type[1],16);
 			}else{
-				throw new Error(`${temp[i.id] = parseInt(i.type[1],16)}没有该类型的匹配`);
+				temp[i.id] = 0;
+				logger.error(`${temp[i.id] = parseInt(i.type[1],16)}没有该类型的匹配,重新定义为0！`);
+				//throw new Error(`${temp[i.id] = parseInt(i.type[1],16)}没有该类型的匹配`);
 			}
 		}
 		return temp;
