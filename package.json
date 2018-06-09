@@ -5,20 +5,23 @@
   "main": "/bin/bin.js",
   "scripts": {
     "start": "DEBUG=debug nodemon bin/bin && mocha",
-    "test": "mocha"
+    "test": "mocha",
+    "build": "babel ./static/scripts --no-comments --compact false --minified --out-dir ./static/scripts/dist --ignore ./static/scripts/dist/"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.3",
-    "koa-bodyparser": "^4.2.1",
-    "socket.io": "^2.1.1",
     "log4js": "^2.7.0",
-    "mocha": "^5.2.0",
-    "supertest": "^3.1.0",
-    "nodemon": "^1.17.5",
     "md5": "^2.2.1",
-    "shelljs": "^0.8.2"
+    "mocha": "^5.2.0",
+    "nodemon": "^1.17.5",
+    "shelljs": "^0.8.2",
+    "socket.io": "^2.1.1",
+    "supertest": "^3.1.0"
   },
   "port": 3000,
   "repository": {
