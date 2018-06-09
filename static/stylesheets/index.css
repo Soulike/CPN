@@ -24,12 +24,11 @@ html
     height: 2rem;
     cursor: pointer;
     background-size: cover;
-    border: #AAAAAA 1px solid;
 }
 
 .no-line-row > .icon
 {
-    margin-right: 13.25rem;
+    margin-right: 13.38rem;
 }
 
 .no-line-row > .icon:last-child
@@ -41,7 +40,7 @@ html
 {
     height: 0.5rem;
     /*width: 8.9rem;*/
-    width: 13rem;
+    width: 13.1rem;
     border-left: 0;
     border-right: 0;
     border-top: 1px solid;

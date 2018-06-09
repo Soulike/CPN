@@ -56,7 +56,8 @@ $(async () =>
                     const typeId = data[originalId];
                     const $icon = $(`.icon[data-nodeid=${pageId}]`);
                     $icon.attr('data-deviceType', data[originalId]);//把结点设备的种类记录到DOM上
-                    $icon.css('background-image', `url('./images/${TYPE[typeId]}.png')`);
+                    //$icon.css('background-image', `url('./images/${TYPE[typeId]}.png')`);
+                    $icon.css('background-image', `url('./images/${typeId}.png')`);
                 }
             }
         }
@@ -74,9 +75,9 @@ $(async () =>
                 console.log(e);
             });
     }
-    finally
+    /*finally
     {
-        /*测试用显示设备类型 TODO: 生产环境去除*/
+        /!*测试用显示设备类型 TODO: 生产环境去除*!/
         if (DEBUG)
         {
             const $icons = $('.icon');
@@ -94,7 +95,7 @@ $(async () =>
                 }
             }
         }
-    }
+    }*/
 });
 
 /*Socket 部分*/
@@ -198,7 +199,7 @@ $(() =>
                 const typeId = data[originalId];
                 const $icon = $(`.icon[data-nodeid=${pageId}]`);
                 $icon.attr('data-deviceType', data[originalId]);//把结点设备的种类记录到DOM上
-                $icon.css('background-image', `url('./images/${TYPE[typeId]}.png')`);
+                $icon.css('background-image', `url('./images/${typeId}.png')`);
             }
         }
     });
