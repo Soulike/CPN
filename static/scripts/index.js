@@ -47,9 +47,12 @@ $(async () =>
         {
             // 全部预先写入类型为0
             const $icons = $('.icon');
-            $icons.attr('data-deviceType', '0');//把结点设备的种类记录到DOM上
-            //$icon.css('background-image', `url('./images/${TYPE[0]}.png')`);
-            $icons.css('background-image', `url('./images/0.png')`);
+            for(const $icon of $icons)
+            {
+                $icon.attr('data-deviceType', '0');//把结点设备的种类记录到DOM上
+                //$icon.css('background-image', `url('./images/${TYPE[0]}.png')`);
+                $icon.css('background-image', `url('./images/0.png')`);
+            }
 
             const {data} = getType;
             const {TYPE} = DEVICE;
@@ -197,9 +200,12 @@ $(() =>
     {
         // 全部预先写入类型为0
         const $icons = $('.icon');
-        $icons.attr('data-deviceType', '0');//把结点设备的种类记录到DOM上
-        //$icon.css('background-image', `url('./images/${TYPE[0]}.png')`);
-        $icons.css('background-image', `url('./images/0.png')`);
+        for(const $icon of $icons)
+        {
+            $icon.attr('data-deviceType', '0');//把结点设备的种类记录到DOM上
+            //$icon.css('background-image', `url('./images/${TYPE[0]}.png')`);
+            $icon.css('background-image', `url('./images/0.png')`);
+        }
 
         const {TYPE} = DEVICE;
         for (let originalId in data)
