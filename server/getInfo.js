@@ -10,27 +10,6 @@ let r = (string) => {
 	return string[2] + string[3] + string[0] + string[1];
 };
 
-
-
-// let string = '';
-// for (let i of data){
-// 	for (let j in i){
-// 		if(j==='id'){
-// 			string += i[j];
-// 			string += ',';
-// 		}
-// 		else if(j==='type'){
-// 			//do nothing
-// 		}
-// 		else{
-// 			let n = r(j);
-// 			string += `${n}0000:${i[j]},`;
-// 		}
-// 	}
-// 	string+='\n';
-// }
-// fs.writeFileSync(config.nodesInfoFeedbackPath,string);
-
 module.exports = {
 	getById:(id) => {
 		let typeNumber = [13, 9, 7, 7, 18, 10, 5, 5, 21, 6, 10, 10];
@@ -104,7 +83,11 @@ module.exports = {
 		}
 		let temp = {};
 		for (let i of data){
-			temp[i.id] = parseInt(i.type[1],16);
+			if(parseInt(i.type[1],16)>0&&parseInt(i.type[1],16)<13){
+				temp[i.id] = parseInt(i.type[1],16);
+			}else{
+				throw new Error(`${temp[i.id] = parseInt(i.type[1],16)}没有该类型的匹配`);
+			}
 		}
 		return temp;
 	}

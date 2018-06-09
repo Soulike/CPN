@@ -16,7 +16,7 @@ module.exports = (router)=>{
 			lib.msgTranslate(ctx,0,'获取信息成功！',data);
 		}
 		else{
-			lib.msgTranslate(ctx,1,'文件错误！',{});
+			lib.msgTranslate(ctx,1,'文件信息错误，查无此id！',{});
 		}
 		await next();
 	});
