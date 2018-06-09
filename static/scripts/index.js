@@ -83,7 +83,7 @@ $(async () =>
             for (const icon of $icons)
             {
                 const deviceType = $(icon).attr('data-deviceType');
-                if(deviceType)
+                if (deviceType)
                 {
                     $(icon).text(DEVICE.NAME_FOR_TEST[deviceType]);
                     $(icon).css({
@@ -139,25 +139,25 @@ $(() =>
             processedLines[`${startSeq}-${endSeq}`] = true;
         }
 
-/*        // 清除所有无效数据（单向联通以及重复）
-        for (const key in processedLines)
-        {
-            if (processedLines.hasOwnProperty(key))
-            {
-                const nodeNums = key.split('-');
-                // 如果反过来找不到（单向联通），则删除本键
-                if (Object.is(processedLines[`${nodeNums[1]}-${nodeNums[0]}`], undefined))
-                {
-                    delete processedLines[key];
-                }
-                // 如果是双向联通的，且是重复数据，则删除本键
-                else if (parseInt(nodeNums[0]) > parseInt(nodeNums[1]))
-                {
-                    delete processedLines[key];
-                }
-            }
+        /*        // 清除所有无效数据（单向联通以及重复）
+         for (const key in processedLines)
+         {
+         if (processedLines.hasOwnProperty(key))
+         {
+         const nodeNums = key.split('-');
+         // 如果反过来找不到（单向联通），则删除本键
+         if (Object.is(processedLines[`${nodeNums[1]}-${nodeNums[0]}`], undefined))
+         {
+         delete processedLines[key];
+         }
+         // 如果是双向联通的，且是重复数据，则删除本键
+         else if (parseInt(nodeNums[0]) > parseInt(nodeNums[1]))
+         {
+         delete processedLines[key];
+         }
+         }
 
-        }*/
+         }*/
 
         //TODO: 生产环境去除
         if (DEBUG)
@@ -182,6 +182,23 @@ $(() =>
                         $(`.line[data-connectnodes=${i}-${j}]`).addClass('connected');
                     }
                 }
+            }
+        }
+    });
+
+    socket.on('nodeType', (data) =>
+    {
+        const {TYPE} = DEVICE;
+        for (let originalId in data)
+        {
+            if (data.hasOwnProperty(originalId))
+            {
+                originalId = originalId.trim();
+                const pageId = originalIdToPageId[originalId];
+                const typeId = data[originalId];
+                const $icon = $(`.icon[data-nodeid=${pageId}]`);
+                $icon.attr('data-deviceType', data[originalId]);//把结点设备的种类记录到DOM上
+                $icon.css('background-image', `url('./images/${TYPE[typeId]}.png')`);
             }
         }
     });
