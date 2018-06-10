@@ -197,7 +197,7 @@ function getOriginalId(pageId)
 
 function octToEightHex(originalNum)
 {
-    let hex = originalNum.toString(16).toUpperCase();
+    let hex = parseInt(originalNum).toString(16).toUpperCase();
     const leftZeroNum = 8 - hex.length;
     for (let i = 0; i < leftZeroNum; i++)
     {
