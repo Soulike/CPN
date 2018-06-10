@@ -34,7 +34,7 @@ module.exports = (router)=>{
 				operatorString += `$${parseInt(i.toString(),16)-parseInt(start[nodesType[data.id.toString()] - 1],16) + 2} = "${r(i)}0000:${data.data[i]}";`
 			}
 			await modifyInfo(data.id.toString(),operatorString,config.nodesInfoFeedbackPath);
-			lib.msgTranslate(ctx,0,'修改成功！',{});
+			lib.msgTranslate(ctx,0,'修改成功,正在下发！',{});
 		}else{
 			lib.msgTranslate(ctx,2,'节点类型未定义！',{});
 		}
