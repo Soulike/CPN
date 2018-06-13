@@ -112,11 +112,11 @@ $(() =>
                             }
                             else if ($para.prop('tagName').toLowerCase() === 'input' && $para.attr('data-paraType') === 'control')
                             {
-                                $para.val(parseInt(data[paraId],16));
+                                $para.val(data[paraId]);
                             }
                             else if ($para.prop('tagName').toLowerCase() === 'span' && $para.attr('data-paraType') === 'data')
                             {
-                                $para.text(parseInt(data[paraId],16));
+                                $para.text(data[paraId]);
                             }
                         }
                     }
@@ -192,7 +192,7 @@ $(() =>
                         for (const c of $controls)
                         {
                             const paraId = $(c).attr('data-paraId');
-                            temp.data[paraId] = octToEightHex($(c).val());
+                            temp.data[paraId] = $(c).val();
                         }
 
                         const {code, msg} = await postAsync('/cpn/node/modify', temp);
